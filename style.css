@@ -323,5 +323,510 @@ html, body {
 .number{
  font-size: 70px;
  font-weight: 600;
+}
 
+/* ---------- SECTION (full-width, fixed height for desktop) ---------- */
+.promo-section{
+  width: 100%;
+  height: 1900px;              
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  margin-top: 70px;
+  /* background-color: rgb(188, 188, 188); */
+}
+
+/* dotted artwork (exact uploaded image) */
+.promo-dots{
+  position: absolute;
+  left: 0px;                 /* nudge right so dots align left of content */
+  top: 0px;                  /* nudge down to align with header area */
+  width: 420px;               /* LIMIT width so dots only on left side */
+  height: 600px; /* leave top/bottom breathing space */
+  background-image: url("./images/vector-collections.svg");
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  box-sizing: border-box;
+}
+/* ---------- GRID LAYOUT (staggered like the screenshot) ---------- */
+/* We use a 12-column grid for precise placement */
+.promo-grid{
+  position: relative;
+  z-index: 2; /* above the dotted art */
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px;
+  padding: 60px 48px;
+  box-sizing: border-box;
+  height: 100%;
+  align-items: start;
+}
+
+/* ---------- STATS (top-left / bottom-right) ---------- */
+.stat{
+   position: relative;
+  z-index: 3; /* put stats above the dots */
+  background: transparent;
+  left: 20%;
+  top: 30%;
+}
+.stat-number{
+  font-size:60px;
+  font-weight:800;
+  line-height:1;
+  font-weight: 300;
+}
+.stat-number .plus{ font-size:30px; margin-left:6px; }
+.stat-label{ font-size:30px; color:#0a0a0a; }
+
+/* positions */
+.stat-top-left{ grid-column: 1 / span 4; grid-row: 1; align-self: start; }
+
+
+.stat-bottom-right{ 
+  grid-column: 9 / span 4; 
+  grid-row: 5; 
+  margin-top: -100px;
+  margin-right: 150px;
+}
+
+
+/* ---------- CARD BASE ---------- */
+.card{
+  position: relative;
+ 
+  overflow: hidden;
+  min-height: 180px;
+  display:block;
+  box-sizing:border-box;
+  color:#111;
+  background-color: transparent;
+}
+
+/* common content inside cards (text overlays) */
+.card-content{
+  position: absolute;
+  left: 400px;
+  bottom: 88px;
+  z-index: 3;
+  color: #111;
+  max-width: 46%;
+
+}
+.card .tiny{ font-size:12px; color:#666; margin-bottom:10px;  }
+.new-accessory{
+  position: absolute;
+  top: -190%;
+  left: 230%;
+}
+.card h3{ margin:0; margin-left: -10px; font-size:32px; line-height:1.05; font-weight:700; color:#111; }
+.card-cta{ display:inline-block; margin-top:10px; margin-left: -10px; font-size:13px; text-decoration:none; color:#111; border-bottom:1px solid transparent; padding-bottom:2px; }
+
+/* ---------- IMAGE BACKGROUNDS (SET IMAGES HERE) ---------- */
+/* Replace the URLs below with your real card artwork paths if you have different ones. */
+
+/* ACCESSORY (left column, tall) */
+.card-accessory{
+  grid-column: 1 / span 5;
+  grid-row: 2 / span 2;
+  min-height: 520px;
+  background-image: url("./images/collections-image_1.jpg.jpeg");
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  margin-left: 60px;
+  margin-top: 140px;
+  position: relative;
+  overflow: visible;
+}
+.card-accessory .card-content{ color:#111; max-width:58%; }
+
+/* Sweaters (top-right, wide) */
+.card-sweaters{
+  grid-column: 7 / span 6;
+  grid-row: 1 / span 2;
+  width: 410px;
+  min-height: 520px;
+  background-image: url("./images/collections-image_3.jpg.jpeg");
+  background-size: cover;
+  background-position: right center;
+  padding: 0;
+  margin-left: 70px;
+  overflow: visible;
+
+}
+.card-sweaters .card-content{ color:#fff; text-shadow: 0 6px 20px rgba(0,0,0,0.45); }
+
+/* Sale framed (left lower) */
+.card-sale{
+  grid-column: 1 / span 4;
+  grid-row: 4;
+  /* min-height: 300px; */
+  padding: 0;
+}
+.card-sale {
+
+    width: 520px;
+  height: 500px;
+  background-image: url('./images/collections-image_2.jpg.jpeg'); 
+  background-size: cover; 
+  background-position: center; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; /* Vertical center */
+  border-radius: 10px; /* Optional: rounded corners */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Optional: shadow */
+  text-align: center; /* Center text inside */
+  color: #fff; /* Text color white for contrast */
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+/* Styling the content inside */
+.sale-copy {
+  background: rgba(77, 77, 77, 0.5); 
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sale-tag {
+  font-size: 28px;
+  font-weight: 200;
+  letter-spacing: 6px;
+  margin-bottom: 10px;
+}
+
+.sale-strong {
+  font-size: 90px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.card-cta {
+  display: inline-block;
+  padding: 10px 20px;
+ 
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.content2{
+  position: absolute;
+  margin-top: 60%;
+  margin-left: -10px;
+}
+
+/* Dresses (right middle, tall) */
+.card-dresses{
+  grid-column: 6 / span 6;
+  grid-row: 3 / span 2;
+  width: 440px;
+  height: 480px;
+  background-image: url("./images/collections-image_4.jpg.jpeg");
+  background-size: cover;
+  background-position: left center;
+  padding: 0;
+  margin-left: 30px;
+  margin-top: 70px;
+  position: relative;
+  overflow: visible;
+}
+.card-dresses .card-content{ color:#111; }
+
+.content3{
+  position: absolute;
+  margin-top: 50%;
+  margin-left: 70%;
+}
+
+/* ---------- HERO LABELS (big overlay text) ---------- */
+.hero-label{
+  position: relative;
+  /* position:absolute; */
+  right: 5px;
+  left: 20px;
+  margin-top: 115%;
+  z-index: 2;
+  font-weight:900;
+  font-size: 0px;
+  text-transform:uppercase;
+  color: rgba(255,255,255,0.92);
+  pointer-events:none;
+  transform: translateZ(0);
+  text-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  overflow: visible;
+}
+.hero-label h1{
+position: absolute;
+   font-weight:900;
+  font-size: 70px;
+  overflow: visible;
+}
+.hero-label.left{
+position: absolute;
+top: -10%;
+left: -20px;
+right: auto;
+font-size:88px;
+color: rgba(255,255,255,0.92);
+ text-shadow: 0 3px 12px rgba(0,0,0,0.25);
+}
+
+/* ---------- ACCESSORIES VERTICAL LABEL ---------- */
+.side-vertical{
+  position:absolute;
+  left: -210px;
+  top: 45%;
+  transform: rotate(-90deg) translateY(-50%);
+  font-size: 60px;
+  font-weight:900;
+  color: rgba(255,255,255,0.92);
+  letter-spacing:2px;
+  z-index: 5;
+  pointer-events:none;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.25);
+ 
+}
+
+/* ---------- VIEW MORE BUTTON ---------- */
+.view-wrap{
+  grid-column: 1 / -1;
+  display:flex;
+  justify-content:center;
+  margin-top: 20px;
+}
+.view-more{
+  background:#000;
+  color:#fff;
+  border:0;
+  padding: 14px 26px;
+  font-size:15px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* ---------- LOADER (keeps same look) ---------- */
+.promo-loader{
+  position: fixed;
+  inset:0;
+  display:none;
+  z-index: 99999;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.45);
+  flex-direction:column;
+}
+.promo-loader.active{ display:flex; }
+.spinner{ width:60px; height:60px; border-radius:50%; border:6px solid rgba(255,255,255,0.18); border-top-color:#fff; animation:spin 1s linear infinite; margin-bottom:12px;}
+.loader-text{ color:#fff; font-size:14px; }
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+/* ---------- RESPONSIVE (keeps reasonable stacking) ---------- */
+/* keep original grid but adjust placement & min-heights to avoid image bleed on small screens */
+@media (min-width: 1201px) {
+  /* Desktop: keep original large hero labels and heights */
+  .promo-grid { gap: 28px; padding: 60px 48px; }
+  .card-accessory, .card-sweaters, .card-dresses { min-height: 520px; }
+  .card-sale { min-height: 300px; }
+  .hero-label { font-size: 96px; }
+}
+
+/* Tablet */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .promo-grid{
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    padding: 36px;
+  }
+  .card-accessory, .card-sweaters, .card-dresses { min-height: 420px; }
+  .card-sale { min-height: 260px; }
+  .hero-label { font-size: 64px; right: 20px; }
+  /* keep dots visible but narrower on tablet */
+  .promo-dots{ left: 32px; width: 320px; background-size: 34px 34px; top: 36px; }
+}
+
+/* Small tablet / large mobile — stack more cleanly */
+@media (max-width: 900px) and (min-width: 641px) {
+  .promo-grid{
+    grid-template-columns: repeat(6, 1fr);
+    padding: 28px;
+    gap: 16px;
+  }
+  /* stack the big cards to full-width-ish blocks to avoid awkward cropping */
+  .card-accessory { grid-column: 1 / span 6; min-height: 360px; }
+  .card-sweaters  { grid-column: 1 / span 6; min-height: 360px; }
+  .card-sale      { grid-column: 1 / span 3; min-height: 220px; }
+  .card-dresses   { grid-column: 4 / span 3; min-height: 220px; }
+  .stat-top-left  { grid-column: 1 / span 3; }
+  .stat-bottom-right { grid-column: 4 / span 3; text-align: right; }
+  .promo-dots{ display:block; left:18px; width: 220px; background-size: 30px 30px; top: 14px; }
+  .hero-label, .hero-label.left { font-size: 40px; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  /* collapse to single-column stack */
+  .promo-section{ height: auto; padding-bottom: 40px; }
+  .promo-grid{ grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 18px; }
+  .card-accessory, .card-sweaters, .card-sale, .card-dresses {
+    grid-column: 1 / span 4 !important;
+    min-height: 220px;
+  }
+  /* hide decorative dots on small screens to avoid overlap/clutter */
+  .promo-dots{ display: none; }
+  .hero-label, .hero-label.left{ font-size: 26px; }
+  .card-content{ left: 12px; bottom: 12px; max-width: 75%; }
+  .stat-top-left, .stat-bottom-right { grid-column: 1 / span 2; text-align: left; }
+}
+
+/* ---------- MICRO FIXES: image focal, content safety ---------- */
+/* Ensure background images always cover and keep center focal point */
+.card-accessory,
+.card-sweaters,
+.card-dresses,
+.card-sale .frame-inner {
+  background-repeat: no-repeat;
+  background-size: cover;        /* cover prevents empty areas on tall containers */
+  background-position: center;   /* keep the important subject visible */
+}
+
+/* Slightly reduce line-heights and adjust card-content width on smaller screens */
+@media (max-width: 900px) {
+  .card h3 { font-size: 20px; }
+  .card .tiny { font-size: 11px; }
+  .card-content { max-width: 70%; }
+}
+/* main page products section */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Card */
+.product-card {
+    position: relative;
+    background: #f9f9fd;
+    box-shadow: 5px 5px 10px rgb(229, 229, 229);
+    padding: 20px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image */
+.product-image {
+    text-align: center;
+    padding: 20px 10px;
+    
+}
+
+.product-image img {
+    max-width: 100%;
+    height: 260px;
+    object-fit: contain;
+}
+
+/* Tag */
+.tag {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.tag.new {
+    background: #8fd6b3;
+}
+
+/* Wishlist Heart */
+.wishlist {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Info */
+.product-info {
+    margin-top: 15px;
+}
+
+.product-info h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.product-info .price {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* ✅ RESPONSIVENESS */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .product-image img {
+        height: 220px;
+    }
+
+    .product-info h3 {
+        font-size: 15px;
+    }
+
+    .product-info .price {
+        font-size: 18px;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card {
+        padding: 15px;
+    }
+
+    .product-image img {
+        height: 200px;
+    }
+
+    .wishlist {
+        font-size: 18px;
+    }
+
+    .tag {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}
+.landingPageProducts{
+  margin-top: 50px;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
