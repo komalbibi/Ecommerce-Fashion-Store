@@ -236,3 +236,92 @@ html, body {
         width: 100%;
     }
 }
+
+
+.about-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    width: 100%;
+    padding: 50px 80px;
+    align-items: center;
+  
+}
+
+.about-left img {
+    width: 120%;
+    height: 650px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.deal {
+    font-size: 14px;
+    letter-spacing: 4px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.deal span {
+    font-weight: 300;
+}
+
+.title {
+    font-size: 70px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 25px;
+}
+
+.desc {
+    width: 90%;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 40px;
+}
+
+.shop-btn {
+    display: inline-block;
+    padding: 18px 40px;
+    background: #000;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.shop-btn:hover {
+    background: #333;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 992px) {
+    .about-hero {
+        grid-template-columns: 1fr;
+        padding: 40px;
+        text-align: center;
+    }
+
+    .about-left img {
+        height: 450px;
+    }
+
+    .desc {
+        margin: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .title {
+        font-size: 48px;
+    }
+
+    .desc {
+        width: 100%;
+        font-size: 16px;
+    }
+}

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fashion Store</title>
+  <title>Fashion Store - main page</title>
   <!-- Bootstrap cdn -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <!-- fontawesome cdn -->
@@ -26,19 +26,44 @@
       </div>
 
       <ul class="nav-center">
-       <li><a href="./index.html">Home</a></li>
+       <li><a href="#">Home</a></li>
                 <li><a href="./shop.html">Shop</a></li>
                 <li><a href="./blog.html">Blog</a></li>
                 <li><a href="./about.html">About Us</a></li>
                 <li><a href="./contact.html">Contact</a></li>
       </ul>
 
-      <div class="nav-right">
+      <!-- <div class="nav-right">
         <span class="icon"><img src="./images/search.svg" alt=""></span>
         <span class="icon"><img src="./images/user.svg" alt=""></span>
         <span class="icon"><img src="./images/heart.svg" alt=""></span>
         <span class="icon"><img src="./images/shopping-bag.svg" alt=""></span>
-      </div>
+      </div> -->
+
+      <!-- <div class="nav-right">
+    <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+    <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+
+
+    <span class="icon"><img id="nav-wishlist" src="./images/heart.svg"></span>
+    <span class="icon"><img id="nav-cart" src="./images/shopping-bag.svg"></span>
+</div> -->
+
+<div class="nav-right">
+   <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+    <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+    <span class="icon nav-icon">
+        <img id="nav-wishlist" src="./images/heart.svg" />
+        <span id="wishlist-count" class="count">0</span>
+    </span>
+
+    <span class="icon nav-icon">
+        <img id="nav-cart" src="./images/shopping-bag.svg" />
+        <span id="cart-count" class="count">0</span>
+    </span>
+</div>
+
+
     </nav>
 
   </header>
@@ -243,7 +268,7 @@
 
 
       <div class="product-card">
-        <!-- <div class="tag new">NEW</div> -->
+       
         <div class="wishlist">♡</div>
 
         <div class="product-image">
@@ -582,7 +607,7 @@
     })();
 
   </script>
-
+<script src="./shop.js"></script>
 </body>
 
 </html>

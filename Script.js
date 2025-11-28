@@ -1,29 +1,36 @@
-
 /*
-  promo-view-more.js
-  Standalone script to show loader for a configurable duration, then navigate.
+  promo-view-more.js (multi-button version)
+  Applies loader -> navigate behavior to all matching buttons.
+
   Usage:
-    - Button: <button id="view-more-btn" data-target="shop.html" data-duration="3500">View All Collections</button>
-    - Loader overlay must exist with id "promo-loader"
-    - Default target: 'shop.html'
-    - Default duration: 3500 ms
+    - Buttons: <button class="view-more" data-target="shop.html" data-duration="3500">View All</button>
+    - Optionally call initPromoViewMore({ selector: '.view-more', loaderId: 'promo-loader', defaultTarget: 'shop.html', defaultDuration: 3500 })
 */
 
 (function () {
   'use strict';
 
   function initPromoViewMore(opts) {
-    var btn = document.getElementById(opts.buttonId || 'view-more-btn');
-    var loader = document.getElementById(opts.loaderId || 'promo-loader');
+    opts = opts || {};
 
-    if (!btn) {
+    var selector = opts.selector || '.view-more';
+    var loaderId = opts.loaderId || 'promo-loader';
+    var defaultTarget = opts.defaultTarget || 'shop.html';
+    var defaultDuration = typeof opts.defaultDuration === 'number' ? opts.defaultDuration : 3500;
+
+    // find all matching buttons
+    var buttons = Array.prototype.slice.call(document.querySelectorAll(selector));
+
+    if (!buttons.length) {
       // nothing to wire up
       return;
     }
-    // fallback if loader not present: create a simple fullscreen loader
+
+    // find or create a single loader element
+    var loader = document.getElementById(loaderId);
     if (!loader) {
       loader = document.createElement('div');
-      loader.id = opts.loaderId || 'promo-loader';
+      loader.id = loaderId;
       loader.className = 'promo-loader';
       loader.setAttribute('aria-hidden', 'true');
       loader.innerHTML = '<div class="spinner" role="status" aria-label="Loading"></div><div class="loader-text">Loading...</div>';
@@ -39,19 +46,21 @@
       loader.setAttribute('aria-hidden', 'true');
     }
 
-    btn.addEventListener('click', function (e) {
+    // Handler for a single button click
+    function onClickHandler(e) {
       e.preventDefault();
+      var btn = e.currentTarget;
 
       // read data attributes for customisation
-      var target = btn.getAttribute('data-target') || btn.getAttribute('href') || opts.defaultTarget || 'shop.html';
+      var target = btn.getAttribute('data-target') || btn.getAttribute('href') || defaultTarget;
       var durationAttr = btn.getAttribute('data-duration');
-      var duration = durationAttr ? parseInt(durationAttr, 10) : (opts.defaultDuration || 3500);
+      var duration = durationAttr ? parseInt(durationAttr, 10) : defaultDuration;
 
       // clamp duration to sensible range (500ms - 10000ms)
-      if (isNaN(duration) || duration < 0) duration = opts.defaultDuration || 3500;
+      if (isNaN(duration) || duration < 0) duration = defaultDuration;
       duration = Math.max(500, Math.min(10000, duration));
 
-      // Disable button to avoid double clicks
+      // Disable the clicked button to avoid double clicks
       btn.disabled = true;
       btn.setAttribute('aria-disabled', 'true');
 
@@ -69,14 +78,22 @@
         try {
           window.location.href = target;
         } catch (err) {
-          // fallback: if location fails, remove loader and restore button
           console.error('Navigation failed:', err);
         }
       }, duration);
-    }, false);
+    }
+
+    // Attach event listeners (ensure duplicates are not attached)
+    buttons.forEach(function (b) {
+      // remove previous listener marker if exists to prevent duplicates
+      if (!b.__promoViewMoreBound) {
+        b.addEventListener('click', onClickHandler, false);
+        b.__promoViewMoreBound = true; // flag to avoid duplicate binding
+      }
+    });
   }
 
-  // Auto init on DOMContentLoaded with default IDs
+  // Auto init on DOMContentLoaded with default selector if any .view-more exists
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initPromoViewMore({});
@@ -87,7 +104,4 @@
 
   // Expose initializer for manual setup if needed:
   window.initPromoViewMore = initPromoViewMore;
-
 })();
-
-

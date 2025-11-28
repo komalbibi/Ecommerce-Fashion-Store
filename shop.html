@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>Fashion store - Shop</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="shop.css">
       <!-- Bootstrap cdn -->
@@ -23,18 +23,32 @@
 
       <ul class="nav-center">
          <li><a href="./index.html">Home</a></li>
-                <li><a href="./shop.html">Shop</a></li>
+                <li><a href="#">Shop</a></li>
                 <li><a href="./blog.html">Blog</a></li>
                 <li><a href="./about.html">About Us</a></li>
                 <li><a href="./contact.html">Contact</a></li>
       </ul>
-
+<!-- 
       <div class="nav-right">
         <span class="icon icon-one"><img src="./images/search.svg" alt=""></span>
         <span class="icon icon-two" ><img src="./images/user.svg" alt=""></span>
         <span class="icon icon-three"><img src="./images/heart.svg" alt=""></span>
         <span class="icon icon-four"><img src="./images/shopping-bag.svg" alt=""></span>
-      </div>
+      </div> -->
+<div class="nav-right">
+   <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+    <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+    <span class="icon nav-icon">
+        <img id="nav-wishlist" src="./images/heart.svg" />
+        <span id="wishlist-count" class="count">0</span>
+    </span>
+
+    <span class="icon nav-icon">
+        <img id="nav-cart" src="./images/shopping-bag.svg" />
+        <span id="cart-count" class="count">0</span>
+    </span>
+</div>
+
     </nav>
 
   </header>
@@ -68,6 +82,78 @@
     </div>
   </div>
 </section>
+
+<!-- SHOP SECTION -->
+<section class="shop-section">
+
+  <!-- header area: wishlist/cart counters (you can move into your top nav if you want) -->
+  <div class="shop-header">
+    <div class="shop-results" id="shopResults">Showing <span id="shownCount">0</span> products</div>
+    <!-- <div class="shop-actions">
+      <button class="icon-btn" id="wishlistBtn" title="Wishlist">
+        <img src="./images/heart.svg" alt="Wishlist" /><span class="badge" id="wishlistCount">0</span>
+      </button>
+      <button class="icon-btn" id="cartBtn" title="Cart">
+        <img src="./images/shopping-bag.svg" alt="Cart" /><span class="badge" id="cartCount">0</span>
+      </button>
+    </div> -->
+  </div>
+
+  <div class="shop-grid">
+
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar">
+      <div class="filter-block">
+        <h3>Categories</h3>
+        <ul class="categories" id="categoryList">
+          <li><label><input type="radio" name="category" value="all" checked> All</label></li>
+          <li><label><input type="radio" name="category" value="men"> Men</label></li>
+          <li><label><input type="radio" name="category" value="women"> Women</label></li>
+          <li><label><input type="radio" name="category" value="accessories"> Accessories</label></li>
+          <li><label><input type="radio" name="category" value="new"> New Arrivals</label></li>
+        </ul>
+      </div>
+
+      <div class="filter-block">
+        <h3>Price</h3>
+        <div class="price-range">
+          <div class="range-values">
+            <span id="priceMinLabel">$0</span> — <span id="priceMaxLabel">$200</span>
+          </div>
+          <input type="range" id="priceRange" min="0" max="200" value="200">
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <h3>Colors</h3>
+        <div class="colors">
+          <label><input type="checkbox" value="black"> Black</label>
+          <label><input type="checkbox" value="blue"> Blue</label>
+          <label><input type="checkbox" value="red"> Red</label>
+          <label><input type="checkbox" value="yellow"> Yellow</label>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button id="applyFilters" class="btn-apply">Apply Filter</button>
+        <button id="resetFilters" class="btn-reset">Reset</button>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS GRID -->
+    <main class="shop-main">
+      <div class="product-grid" id="productGrid"></div>
+
+      <!-- pagination -->
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+</section>
+
+<!-- TOAST (hidden by default) -->
+<div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+
 
 </main>
 
@@ -163,5 +249,7 @@
         </div>
     </div>
 </footer>
+
+<script src="./shop.js"></script>
 </body>
 </html>
