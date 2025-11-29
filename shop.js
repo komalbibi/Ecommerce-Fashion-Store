@@ -275,3 +275,27 @@
   document.addEventListener('DOMContentLoaded', init);
 })();
 
+
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("wishlist")) {
+
+        const card = e.target.closest(".product-card");
+
+        const product = {
+            id: card.dataset.id,
+            name: card.querySelector("h3").innerText,
+            price: card.querySelector(".price").innerText.replace("$", ""),
+            image: card.querySelector("img").src
+        };
+
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+        // prevent duplicates
+        if (!wishlist.find(p => p.id === product.id)) {
+            wishlist.push(product);
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        }
+
+        updateWishlistBadge();
+    }
+});

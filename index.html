@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="shop.css">
 </head>
 
 <body>
@@ -52,7 +53,7 @@
 <div class="nav-right">
    <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
     <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-    <span class="icon nav-icon">
+    <!-- <span class="icon nav-icon">
         <img id="nav-wishlist" src="./images/heart.svg" />
         <span id="wishlist-count" class="count">0</span>
     </span>
@@ -60,8 +61,19 @@
     <span class="icon nav-icon">
         <img id="nav-cart" src="./images/shopping-bag.svg" />
         <span id="cart-count" class="count">0</span>
-    </span>
-</div>
+    </span> -->
+
+<div class="shop-actions">
+     <button class="icon-btn" id="wishlistBtn" title="Wishlist" onclick="window.location.href='wishlist.html'">
+  <img src="./images/heart.svg" alt="Wishlist" />
+  <span class="badge" id="wishlistCount">0</span>
+</button>
+
+      <button class="icon-btn" id="cartBtn" title="Cart">
+        <img src="./images/shopping-bag.svg" alt="Cart" /><span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
 
 
     </nav>
