@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Order Complete</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
+      <style>
+  .complete-wrap{ max-width:900px; margin:48px auto; text-align:center; padding:28px; border-radius:10px; border:1px solid #ececec; background:#fff; }
+  .done-icon{ width:86px; height:86px; margin-bottom:12px; }
+  .btn-primary{ background:#111; color:#fff; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; margin:8px; }
+  .btn-ghost{ background:transparent; border:1px solid #111; padding:10px 16px; border-radius:8px; cursor:pointer; margin:8px; }
+  .muted{ color:#666; }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER (unchanged) -->
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="hamburger">&#9776;</div>
+            <div class="logo"><img src="./images/logo.svg" alt=""></div>
+        </div>
+
+        <ul class="nav-center">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./shop.html">Shop</a></li>
+            <li><a href="./blog.html">Blog</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            
+        </ul>
+
+        <div class="nav-right">
+            <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+            <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+
+            <div class="shop-actions">
+                <button class="icon-btn" id="wishlistBtn" onclick="window.location.href='wishlist.html'">
+                    <img src="./images/heart.svg" alt="Wishlist" />
+                    <span class="badge" id="wishlistCount">0</span>
+                </button>
+
+                <button class="icon-btn" id="cartBtn" onclick="window.location.href='cart.html'">
+                    <img src="./images/shopping-bag.svg" alt="Cart" />
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO BANNER -->
+<section class="shop-hero">
+  <div class="hero-inner">
+    <!-- LEFT TEXT -->
+    <div class="hero-left">
+      <span class="dot-grid"></span>
+      <h1 class="hero-title">Checkout</h1>
+
+      <nav class="breadcrumbs">
+        <a href="#" class="bc-link">Home</a>
+        <span class="bc-sep">|</span>
+        <span class="bc-current">Checkout</span>
+      </nav>
+
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-right">
+      <img src="./shop-images/banner-cart.jpg" alt="model" class="hero-image">
+    </div>
+  </div>
+</section>
+
+<!-- ====== CHECKOUT STEP 3 (MAIN CONTENT & EMAILJS) ====== -->
+<section class="checkout-section" aria-label="Checkout - Complete">
+
+
+
+  <div class="complete-wrap" role="status">
+    <img src="./images/check.svg" alt="done" class="done-icon" />
+    <h2>Thank you — your order is confirmed!</h2>
+    <p class="muted" id="orderInfo">We have sent an email with the order details to your inbox.</p>
+
+    <div style="margin-top:22px;">
+      <button class="btn-primary" id="resendEmailBtn">Send Email Again</button>
+      <button class="btn-ghost" onclick="window.location.href='shop.html'">Return to Shop</button>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK (loaded inline here, no head changes) -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script>
+  (function(){
+    // Initialize EmailJS with your Public Key
+    if(window.emailjs) try{ emailjs.init('YLmVaZyqcvzWRW21M'); } catch(e){ console.warn(e); }
+
+    // Compose email payload using stored checkout data, then send.
+    function safeParse(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; } }
+    const customer = safeParse('checkout_customer') || {};
+    const summary = safeParse('checkout_summary') || { subtotal:0, delivery:0, total:0 };
+    const cart = safeParse('checkout_cart') || safeParse('cart') || [];
+    const payment = safeParse('checkout_payment') || { method: 'N/A' };
+    const orderId = localStorage.getItem('checkout_order_id') || ('ORD' + Date.now().toString().slice(-8));
+
+    // Build items string for email (simple HTML list)
+    function buildItemsHtml(){
+      if(!cart || !cart.length) return '<p>No items</p>';
+      let html = '<ul>';
+      cart.forEach(it => {
+        html += `<li>${it.title} x${it.qty||1} — Rs ${(it.price*(it.qty||1)).toFixed(2)}</li>`;
+      });
+      html += '</ul>';
+      return html;
+    }
+
+    // Fill on-page info
+    document.getElementById('orderInfo').innerHTML =
+      `Order ID: <strong>${orderId}</strong><br>Payment: <strong>${payment.method}</strong><br>Total: <strong>Rs ${Number(summary.total||0).toFixed(2)}</strong>`;
+
+    // Auto-send email when page loads (best UX: user sees thank you and email is sent)
+    async function sendOrderEmail(){
+      const templateParams = {
+        name: customer.name || 'Customer',
+        email: customer.email || '',
+        address: (customer.street ? customer.street + ', ' : '') + (customer.city? customer.city + ', ':'') + (customer.country || ''),
+        payment_method: payment.method || '',
+        subtotal: 'Rs ' + Number(summary.subtotal||0).toFixed(2),
+        delivery: 'Rs ' + Number(summary.delivery||0).toFixed(2),
+        total: 'Rs ' + Number(summary.total||0).toFixed(2),
+        order_id: orderId,
+        items_html: buildItemsHtml()
+      };
+
+      try {
+        // send using the service & template you gave me
+        await emailjs.send('service_4b56iwh', 'template_48izllf', templateParams);
+        console.info('Order email sent');
+      } catch(err){
+        console.error('EmailJS send error:', err);
+      }
+    }
+
+    // Call once (fire-and-forget)
+    sendOrderEmail();
+
+    // Resend button
+    document.getElementById('resendEmailBtn').addEventListener('click', function(){
+      sendOrderEmail();
+      alert('Email sent (or attempted). Check console for details if something fails.');
+    });
+
+    // OPTIONAL: clear stored checkout data if you want
+    // localStorage.removeItem('checkout_cart');
+    // localStorage.removeItem('checkout_summary');
+    // localStorage.removeItem('checkout_customer');
+    // localStorage.removeItem('checkout_payment');
+    // localStorage.removeItem('checkout_order_id');
+
+  })();
+  </script>
+
+</section>
+<!-- ====== END STEP 3 ====== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="separator">
+
+</div>
+
+<!-- FOOTER (unchanged) -->
+ <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Column 1 -->
+      <div class="footer-col">
+        <div class="logo"><img src="./images/logo.svg" alt=""></div>
+
+        <p>Cillum eu id enim aliquip aute ullamco anim.
+          Culpa deserunt nostrud excepteur voluptate.</p>
+
+        <p class="find-title">Find us here:</p>
+
+        <div class="social-list">
+
+
+          <a class="social-link" href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H7.9v-2.9h2.55V9.2c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.25 0-1.63.77-1.63 1.56v1.86h2.78l-.44 2.9h-2.34v7.03C18.34 21.2 22 17.06 22 12.07z"
+                fill="currentColor" />
+            </svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M22 5.92c-.66.29-1.36.49-2.1.59.76-.46 1.34-1.19 1.61-2.06-.71.42-1.5.72-2.34.89A3.64 3.64 0 0016.45 5c-2.02 0-3.66 1.64-3.66 3.66 0 .29.03.57.09.84C9.5 9.38 6.1 7.66 3.9 4.7c-.32.55-.5 1.19-.5 1.87 0 1.29.66 2.43 1.66 3.1-.61-.02-1.19-.19-1.7-.47v.05c0 1.8 1.28 3.3 2.98 3.64-.31.08-.64.12-.98.12-.24 0-.48-.02-.71-.07.48 1.5 1.85 2.6 3.48 2.63A7.34 7.34 0 012 18.57a10.4 10.4 0 005.63 1.65c6.75 0 10.45-5.59 10.45-10.45v-.48c.72-.53 1.34-1.2 1.83-1.96-.66.3-1.37.5-2.11.59z"
+                fill="currentColor" />
+            </svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.1A3.9 3.9 0 1015.9 12 3.9 3.9 0 0012 8.1zm4.8-.7a1.1 1.1 0 11-1.1-1.1 1.1 1.1 0 011.1 1.1zM12 9.5A2.5 2.5 0 1112 14.5 2.5 2.5 0 0112 9.5z"
+                fill="currentColor" />
+            </svg>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="footer-col">
+        <h3>About</h3>
+        <ul>
+          <li>About us</li>
+          <li>Collections</li>
+          <li>Shop</li>
+          <li>Blog</li>
+          <li>Contact us</li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="footer-col">
+        <h3>Useful Links</h3>
+        <ul>
+          <li>Privacy Policy</li>
+          <li>Terms of use</li>
+          <li>Support</li>
+          <li>Shipping details</li>
+          <li>FAQs</li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-col">
+        <h3>Newsletter</h3>
+        <p>Subscribe to be the first to hear about deals, offers and upcoming collections.</p>
+
+        <div class="newsletter-box">
+          <input type="email" placeholder="Enter your email">
+          <span class="send-icon"><i class="fa-regular fa-paper-plane"></i></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© All right reserved. Mollee 2021</p>
+
+      <div class="payments">
+        <img src="./images/payment_1.png" alt="">
+        <img src="./images/payment_2.png" alt="">
+        <img src="./images/payment_3.png" alt="">
+        <img src="images/payment_4.png" alt="">
+      </div>
+    </div>
+  </footer>
+
+<script src="./shop.js"></script>
+<script src="cart.js"></script>
+
+
+
+</body>
+</html>

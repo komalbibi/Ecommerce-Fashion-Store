@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store - Checkout</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
+    <link rel="stylesheet" href="checkout.css">
+
+ <style>
+  /* Scoped CSS - paste inside page so no head edits required */
+  .checkout-wrap{ max-width:1100px; margin:34px auto; display:flex; gap:30px; align-items:flex-start; padding:10px; }
+  .checkout-left{ flex:1; background:#fff; padding:24px; border-radius:8px; border:1px solid #ececec; }
+  .checkout-right{ width:340px; border:1px solid #ececec; padding:20px; border-radius:8px; background:#fff; }
+  .checkout-progress{ display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+  .cp-step{ flex:1; text-align:center; padding:10px 8px; border-radius:8px; font-weight:700; color:#9a9a9a; border:1px solid #eaeaea; background:#fafafa; }
+  .cp-step.active{ background: linear-gradient(90deg,#8ac6a7,#6fbf95); color:#fff; border-color:transparent; }
+  .field-row{ display:flex; gap:16px; margin-bottom:12px; }
+  .field-row .col{ flex:1; display:flex; flex-direction:column; }
+  label.small{ font-size:13px; color:#555; margin-bottom:6px; }
+  input.checkout-input, textarea.checkout-input, select.checkout-input{ padding:10px 12px; border:1px solid #e6e6e6; border-radius:6px; outline:none; font-size:14px; }
+  textarea.checkout-input{ resize:vertical; min-height:86px; }
+  .btn-checkout{ margin-top:12px; background:#111; color:#fff; padding:10px 18px; border-radius:6px; border:none; cursor:pointer; font-weight:700; }
+  .summary-title{ font-weight:700; margin-bottom:12px; }
+  .summary-item{ display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px dashed #eee; }
+  .summary-item img{ width:56px; height:56px; object-fit:cover; border-radius:6px; }
+  .summary-row{ display:flex; justify-content:space-between; padding:10px 0; font-weight:600; }
+  .muted{ color:#888; font-size:13px; }
+  @media (max-width:980px){ .checkout-wrap{ flex-direction:column } .checkout-right{ width:100% } }
+  </style>
+
+</head>
+
+<body>
+
+<!-- HEADER (unchanged) -->
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="hamburger">&#9776;</div>
+            <div class="logo"><img src="./images/logo.svg" alt=""></div>
+        </div>
+
+        <ul class="nav-center">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./shop.html">Shop</a></li>
+            <li><a href="./blog.html">Blog</a></li>
+            <li><a href="./about.html">About Us</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            
+        </ul>
+
+        <div class="nav-right">
+            <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+            <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+
+            <div class="shop-actions">
+                <button class="icon-btn" id="wishlistBtn" onclick="window.location.href='wishlist.html'">
+                    <img src="./images/heart.svg" alt="Wishlist" />
+                    <span class="badge" id="wishlistCount">0</span>
+                </button>
+
+                <button class="icon-btn" id="cartBtn" onclick="window.location.href='cart.html'">
+                    <img src="./images/shopping-bag.svg" alt="Cart" />
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO BANNER -->
+<section class="shop-hero">
+  <div class="hero-inner">
+    <!-- LEFT TEXT -->
+    <div class="hero-left">
+      <span class="dot-grid"></span>
+      <h1 class="hero-title">Checkout</h1>
+
+      <nav class="breadcrumbs">
+        <a href="#" class="bc-link">Home</a>
+        <span class="bc-sep">|</span>
+        <span class="bc-current">Checkout</span>
+      </nav>
+
+      <div class="hero-divider"></div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-right">
+      <img src="./shop-images/banner-cart.jpg" alt="model" class="hero-image">
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== CHECKOUT STEP 1 (MAIN CONTENT) ====== -->
+<section class="checkout-section" aria-label="Checkout - Order Details">
+
+ 
+
+  <div class="checkout-wrap">
+    <div class="checkout-left">
+      <div class="checkout-progress" aria-hidden="true">
+        <div class="cp-step active">1. Order Details</div>
+        <div class="cp-step">2. Payment Method</div>
+        <div class="cp-step">3. Complete</div>
+      </div>
+
+      <h2>Contact & Delivery</h2>
+
+      <form id="checkoutForm1" onsubmit="return false;">
+        <div class="field-row">
+          <div class="col">
+            <label class="small">Full name *</label>
+            <input id="c_fullname" class="checkout-input" placeholder="John Doe" required>
+          </div>
+          <div class="col">
+            <label class="small">Email *</label>
+            <input id="c_email" class="checkout-input" type="email" placeholder="name@example.com" required>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="col">
+            <label class="small">Phone *</label>
+            <input id="c_phone" class="checkout-input" placeholder="+92 3xx xxxxxxx" required>
+          </div>
+          <div class="col">
+            <label class="small">Postal code</label>
+            <input id="c_postal" class="checkout-input" placeholder="Postal / ZIP">
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label class="small">Street address *</label>
+          <input id="c_street" class="checkout-input" placeholder="Street, building, apartment" required>
+        </div>
+
+        <div class="field-row" style="margin-top:12px;">
+          <div class="col">
+            <label class="small">City *</label>
+            <input id="c_city" class="checkout-input" placeholder="City name" required>
+          </div>
+          <div class="col">
+            <label class="small">Country *</label>
+            <select id="c_country" class="checkout-input" required>
+              <option value="">Select country</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <label class="small">Delivery day (optional)</label>
+          <input id="c_deliveryday" class="checkout-input" placeholder="YYYY-MM-DD">
+        </div>
+
+        <button class="btn-checkout" id="toPaymentBtn">Continue to Payment</button>
+      </form>
+    </div> <!-- /.checkout-left -->
+
+    <aside class="checkout-right" aria-labelledby="summaryTitle">
+      <div id="summaryTitle" class="summary-title">Your order</div>
+
+      <div id="summaryItems" aria-live="polite">
+        <!-- JS will insert order items here -->
+      </div>
+
+      <div style="margin-top:10px;">
+        <div class="summary-row"><div class="muted">Subtotal</div><div id="subtotalText">Rs 0</div></div>
+        <div class="summary-row"><div class="muted">Delivery</div><div id="deliveryText">Rs 0</div></div>
+        <div class="summary-row" style="font-size:18px;"><div>Total</div><div id="totalText">Rs 0</div></div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+  /* Checkout1 JS - stores form data and navigates to checkout2 */
+  (function(){
+    // Attempts to read cart from common keys, fallback to small sample
+    function getCart(){
+      const candidates = ['cart','cart_items','myCart','checkout_cart_v1','CART'];
+      for(const k of candidates){
+        const raw = localStorage.getItem(k);
+        if(raw){
+          try { const parsed = JSON.parse(raw); if(Array.isArray(parsed)) return parsed; } catch(e){}
+        }
+      }
+      // fallback sample (so UI works out-of-the-box)
+      return [
+        { id:1, title:"Cotton Shirt (S)", price:1799, qty:1, img:"./shop-images/p1.jpg" },
+        { id:2, title:"Spray Skirt", price:3299, qty:1, img:"./shop-images/p2.jpg" }
+      ];
+    }
+
+    function formatR(val){ return 'Rs ' + Number(val).toFixed(2); }
+
+    function renderSummary(){
+      const cart = getCart();
+      const container = document.getElementById('summaryItems');
+      container.innerHTML = '';
+      let subtotal = 0;
+      cart.forEach(it=>{
+        subtotal += it.price * (it.qty || 1);
+        const row = document.createElement('div');
+        row.className = 'summary-item';
+        row.innerHTML = `<img src="${it.img}" alt=""><div style="flex:1">
+          <div style="font-weight:600">${it.title}</div>
+          <div class="muted">Qty: ${it.qty||1} • Rs ${Number(it.price).toFixed(2)}</div>
+        </div><div style="font-weight:700">Rs ${(it.price*(it.qty||1)).toFixed(2)}</div>`;
+        container.appendChild(row);
+      });
+      const delivery = 150; // fixed delivery charge - you can change
+      const total = subtotal + delivery;
+      document.getElementById('subtotalText').textContent = formatR(subtotal);
+      document.getElementById('deliveryText').textContent = formatR(delivery);
+      document.getElementById('totalText').textContent = formatR(total);
+      // store cart summary for other pages
+      try{
+        localStorage.setItem('checkout_summary', JSON.stringify({ subtotal, delivery, total }));
+        localStorage.setItem('checkout_cart', JSON.stringify(cart));
+      }catch(e){}
+    }
+
+    renderSummary();
+
+    document.getElementById('toPaymentBtn').addEventListener('click', function(e){
+      e.preventDefault();
+      // basic validation
+      const fullname = document.getElementById('c_fullname').value.trim();
+      const email = document.getElementById('c_email').value.trim();
+      const street = document.getElementById('c_street').value.trim();
+      const city = document.getElementById('c_city').value.trim();
+      const country = document.getElementById('c_country').value.trim();
+
+      if(!fullname || !email || !street || !city || !country){
+        alert('Please fill required fields: name, email, street, city and country.');
+        return;
+      }
+
+      // save values to localStorage for next pages
+      const payload = {
+        name: fullname,
+        email: email,
+        phone: document.getElementById('c_phone').value.trim(),
+        postal: document.getElementById('c_postal').value.trim(),
+        street: street,
+        city: city,
+        country: country,
+        deliveryDay: document.getElementById('c_deliveryday').value.trim()
+      };
+      localStorage.setItem('checkout_customer', JSON.stringify(payload));
+
+      // navigate to payment page
+      window.location.href = 'checkout2.html';
+    });
+
+    // Pre-fill if user returned from step 2
+    try{
+      const cached = JSON.parse(localStorage.getItem('checkout_customer') || '{}');
+      if(cached && Object.keys(cached).length){
+        document.getElementById('c_fullname').value = cached.name || '';
+        document.getElementById('c_email').value = cached.email || '';
+        document.getElementById('c_phone').value = cached.phone || '';
+        document.getElementById('c_postal').value = cached.postal || '';
+        document.getElementById('c_street').value = cached.street || '';
+        document.getElementById('c_city').value = cached.city || '';
+        document.getElementById('c_country').value = cached.country || '';
+        document.getElementById('c_deliveryday').value = cached.deliveryDay || '';
+      }
+    }catch(e){}
+  })();
+  </script>
+
+</section>
+<!-- ====== END STEP 1 ====== -->
+
+
+
+
+
+
+
+
+
+
+<div class="separator">
+
+</div>
+
+<!-- FOOTER (unchanged) -->
+ <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Column 1 -->
+      <div class="footer-col">
+        <div class="logo"><img src="./images/logo.svg" alt=""></div>
+
+        <p>Cillum eu id enim aliquip aute ullamco anim.
+          Culpa deserunt nostrud excepteur voluptate.</p>
+
+        <p class="find-title">Find us here:</p>
+
+        <div class="social-list">
+
+
+          <a class="social-link" href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H7.9v-2.9h2.55V9.2c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.25 0-1.63.77-1.63 1.56v1.86h2.78l-.44 2.9h-2.34v7.03C18.34 21.2 22 17.06 22 12.07z"
+                fill="currentColor" />
+            </svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M22 5.92c-.66.29-1.36.49-2.1.59.76-.46 1.34-1.19 1.61-2.06-.71.42-1.5.72-2.34.89A3.64 3.64 0 0016.45 5c-2.02 0-3.66 1.64-3.66 3.66 0 .29.03.57.09.84C9.5 9.38 6.1 7.66 3.9 4.7c-.32.55-.5 1.19-.5 1.87 0 1.29.66 2.43 1.66 3.1-.61-.02-1.19-.19-1.7-.47v.05c0 1.8 1.28 3.3 2.98 3.64-.31.08-.64.12-.98.12-.24 0-.48-.02-.71-.07.48 1.5 1.85 2.6 3.48 2.63A7.34 7.34 0 012 18.57a10.4 10.4 0 005.63 1.65c6.75 0 10.45-5.59 10.45-10.45v-.48c.72-.53 1.34-1.2 1.83-1.96-.66.3-1.37.5-2.11.59z"
+                fill="currentColor" />
+            </svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path
+                d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.1A3.9 3.9 0 1015.9 12 3.9 3.9 0 0012 8.1zm4.8-.7a1.1 1.1 0 11-1.1-1.1 1.1 1.1 0 011.1 1.1zM12 9.5A2.5 2.5 0 1112 14.5 2.5 2.5 0 0112 9.5z"
+                fill="currentColor" />
+            </svg>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="footer-col">
+        <h3>About</h3>
+        <ul>
+          <li>About us</li>
+          <li>Collections</li>
+          <li>Shop</li>
+          <li>Blog</li>
+          <li>Contact us</li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="footer-col">
+        <h3>Useful Links</h3>
+        <ul>
+          <li>Privacy Policy</li>
+          <li>Terms of use</li>
+          <li>Support</li>
+          <li>Shipping details</li>
+          <li>FAQs</li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-col">
+        <h3>Newsletter</h3>
+        <p>Subscribe to be the first to hear about deals, offers and upcoming collections.</p>
+
+        <div class="newsletter-box">
+          <input type="email" placeholder="Enter your email">
+          <span class="send-icon"><i class="fa-regular fa-paper-plane"></i></span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© All right reserved. Mollee 2021</p>
+
+      <div class="payments">
+        <img src="./images/payment_1.png" alt="">
+        <img src="./images/payment_2.png" alt="">
+        <img src="./images/payment_3.png" alt="">
+        <img src="images/payment_4.png" alt="">
+      </div>
+    </div>
+  </footer>
+
+<script src="./shop.js"></script>
+<script src="cart.js"></script>
+
+</body>
+</html>

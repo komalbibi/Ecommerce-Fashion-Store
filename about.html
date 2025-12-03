@@ -17,40 +17,68 @@
 
 <body>
     <!-- header start -->
-    <header>
+  <header>
 
-        <nav class="navbar">
-            <div class="nav-left">
-                <div class="hamburger">&#9776;</div>
-                <div class="logo"><img src="./images/logo.svg" alt=""></div>
-            </div>
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="hamburger">&#9776;</div>
+        <div class="logo"><img src="./images/logo.svg" alt=""></div>
+      </div>
 
-            <ul class="nav-center">
-              <li><a href="./index.html">Home</a></li>
-                <li><a href="./shop.html">Shop</a></li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
+      <ul class="nav-center">
+        <li><a href="#">Home</a></li>
+        <li><a href="./shop.html">Shop</a></li>
+        <li><a href="./blog.html">Blog</a></li>
+        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
 
-           <div class="nav-right">
-   <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+      <!-- <div class="nav-right">
+        <span class="icon"><img src="./images/search.svg" alt=""></span>
+        <span class="icon"><img src="./images/user.svg" alt=""></span>
+        <span class="icon"><img src="./images/heart.svg" alt=""></span>
+        <span class="icon"><img src="./images/shopping-bag.svg" alt=""></span>
+      </div> -->
+
+      <!-- <div class="nav-right">
+    <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
     <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-  
 
-<div class="shop-actions">
-      <button class="icon-btn" id="wishlistBtn" title="Wishlist">
-        <img src="./images/heart.svg" alt="Wishlist" /><span class="badge" id="wishlistCount">0</span>
-      </button>
-      <button class="icon-btn" id="cartBtn" title="Cart">
-        <img src="./images/shopping-bag.svg" alt="Cart" /><span class="badge" id="cartCount">0</span>
-      </button>
-    </div>
-  </div>
-        </nav>
 
-    </header>
-    <!-- header end -->
+    <span class="icon"><img id="nav-wishlist" src="./images/heart.svg"></span>
+    <span class="icon"><img id="nav-cart" src="./images/shopping-bag.svg"></span>
+</div> -->
+
+      <div class="nav-right">
+        <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
+        <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
+        <!-- <span class="icon nav-icon">
+        <img id="nav-wishlist" src="./images/heart.svg" />
+        <span id="wishlist-count" class="count">0</span>
+    </span>
+
+    <span class="icon nav-icon">
+        <img id="nav-cart" src="./images/shopping-bag.svg" />
+        <span id="cart-count" class="count">0</span>
+    </span> -->
+
+        <div class="shop-actions">
+          <button class="icon-btn" id="wishlistBtn" title="Wishlist" onclick="window.location.href='wishlist.html'">
+            <img src="./images/heart.svg" alt="Wishlist" />
+            <span class="badge" id="wishlistCount">0</span>
+          </button>
+
+          <button class="icon-btn" id="cartBtn" title="Cart" onclick="window.location.href='cart.html'">
+            <img src="./images/shopping-bag.svg" alt="Cart" /><span class="badge" id="cartCount">0</span>
+          </button>
+        </div>
+      </div>
+
+
+    </nav>
+
+  </header>
+  <!-- header end -->
 
     <main>
          <section class="shop-hero">

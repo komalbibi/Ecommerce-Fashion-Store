@@ -1,0 +1,204 @@
+/* styles.css - checkout layout & stepper styling (responsive) */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root{
+  --accent: #8ac6a7; /* green bar color like sample */
+  --text: #111;
+  --muted: #9a9a9a;
+  --card-border: #e8e8e8;
+}
+
+*{ box-sizing: border-box; }
+body{
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+  margin:0;
+  background: #fff;
+  padding: 32px;
+}
+
+/* Container */
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+  display:flex;
+  gap: 30px;
+  align-items:flex-start;
+}
+
+/* Left column area */
+.left{
+  flex: 1 1 65%;
+  padding-right: 10px;
+}
+
+/* Right sidebar */
+.sidebar{
+  width: 340px;
+  border:1px solid var(--card-border);
+  padding:24px;
+  border-radius:3px;
+  background: #fff;
+}
+
+/* Stepper */
+.progress-wrap{
+  margin-bottom: 28px;
+}
+.steps{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  justify-content:space-between;
+}
+.step{
+  text-align:center;
+  flex:1;
+  position:relative;
+  color: var(--muted);
+}
+.step .dot{
+  width:46px;
+  margin: 0 auto 6px;
+  height:46px;
+  border-radius:50%;
+  border:2px solid var(--card-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+}
+.step.active, .step.completed{
+  color: #333;
+}
+.step.completed .dot{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.step.active .dot{
+  border-color:var(--accent);
+}
+.step::after{
+  content: "";
+  position:absolute;
+  right:-11%;
+  top:20px;
+  height:2px;
+  width:122%;
+  background: var(--card-border);
+  z-index:-1;
+}
+.step:last-child::after{ display:none; }
+
+/* Filled line overlay */
+.steps-line{
+  position:relative;
+  margin-top:12px;
+  height:2px;
+  background:transparent;
+}
+.steps-line .fill{
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  background:var(--accent);
+  width:0%;
+  transition: width .4s ease;
+  z-index:0;
+}
+
+/* Headings */
+h1{
+  font-weight:700;
+  margin: 12px 0 24px;
+  font-size:34px;
+}
+
+/* Contact & address form styles (simple) */
+.form-row{
+  display:flex;
+  gap:22px;
+}
+.form-row .form-group{ flex:1 }
+.form-group{ margin-bottom:18px; }
+
+.input-underline{
+  border:none;
+  border-bottom:1px solid #e6e6e6;
+  padding:12px 6px;
+  outline:none;
+  width:100%;
+  background:transparent;
+}
+
+/* Buttons */
+.btn{
+  display:inline-block;
+  padding:10px 20px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+.btn-primary{
+  background:#111;
+  color:#fff;
+}
+.btn-ghost{
+  background:transparent;
+  border:1px solid #111;
+  color:#111;
+}
+
+/* Order summary in sidebar */
+.order-item{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+.order-item img{ width:56px; height:56px; object-fit:cover; border-radius:4px; }
+.order-item .title{ font-size:14px; color:#333; }
+.order-row{ display:flex; justify-content:space-between; padding:10px 0; color:#555; font-size:15px; }
+
+/* Payment mock card */
+.pay-card{
+  margin:24px 0;
+  padding:24px;
+  background:#0e0e0e;
+  color:#fff;
+  border-radius:8px;
+  position:relative;
+  overflow:visible;
+}
+
+/* small CVV white box */
+.cvv-box{
+  position:absolute;
+  right:28px;
+  top:48px;
+  background:#fff;
+  color:#111;
+  padding:10px 16px;
+  border-radius:8px;
+  min-width:72px;
+  text-align:center;
+}
+
+/* Confirm/Return area */
+.actions{
+  margin-top:28px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .container{ flex-direction:column; padding:18px; }
+  .sidebar{ width:100%; margin-top:18px; }
+  .steps .step::after{ right:-8%; width: 110%; }
+}
