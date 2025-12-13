@@ -8,13 +8,23 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="shop.css">
     <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
+      <link rel="stylesheet" href="checkout.css">
       <style>
-  .complete-wrap{ max-width:900px; margin:48px auto; text-align:center; padding:28px; border-radius:10px; border:1px solid #ececec; background:#fff; }
-  .done-icon{ width:86px; height:86px; margin-bottom:12px; }
-  .btn-primary{ background:#111; color:#fff; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; margin:8px; }
+  .complete-wrap{ max-width:900px; margin:48px auto; padding:28px; border-radius:10px; border:1px solid #ececec; background:#fff; }
+  .progress-3{ display:flex; gap:12px; margin-bottom:20px; }
+  .progress-3 .step{ flex:1; padding:12px; border-radius:10px; background:linear-gradient(90deg,#8ac6a7,#6fbf95); color:#fff; font-weight:700; text-align:center; border:1px solid transparent; }
+  .summary-grid{ display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start; }
+  .order-box{ padding:18px; border:1px solid #eee; border-radius:8px; }
+  .items-list{ margin-top:10px; }
+  .items-list .item{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee; }
+  .order-meta{ margin-top:12px; font-size:15px; }
+  .btn-primary{ background: #28a745; color:#fff; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; margin:8px; }
   .btn-ghost{ background:transparent; border:1px solid #111; padding:10px 16px; border-radius:8px; cursor:pointer; margin:8px; }
   .muted{ color:#666; }
+  @media (max-width:980px){ .summary-grid{ grid-template-columns: 1fr; } .order-box{ order:2 } }
   </style>
+
+ 
 </head>
 
 <body>
@@ -83,82 +93,157 @@
 <section class="checkout-section" aria-label="Checkout - Complete">
 
 
-
   <div class="complete-wrap" role="status">
-    <img src="./images/check.svg" alt="done" class="done-icon" />
-    <h2>Thank you — your order is confirmed!</h2>
-    <p class="muted" id="orderInfo">We have sent an email with the order details to your inbox.</p>
+   
+    <div class="checkout-progress">
 
-    <div style="margin-top:22px;">
-      <button class="btn-primary" id="resendEmailBtn">Send Email Again</button>
-      <button class="btn-ghost" onclick="window.location.href='shop.html'">Return to Shop</button>
+    <div class="step">
+        <span class="label">Order Details</span>
+        <div class="bar active"></div>
+    </div>
+
+    <div class="step">
+        <span class="label">Payment Method</span>
+        <div class="bar active"></div>
+    </div>
+
+    <div class="step">
+        <span class="label">Complete Order</span>
+        <div class="bar active"></div>
+    </div>
+
+</div>
+
+
+    <h2 style="margin-bottom:6px;">Thank you — your order is confirmed!</h2>
+    <p class="muted" id="orderIntro">Receipt was sent to your email.</p>
+
+    <div class="summary-grid" style="margin-top:18px;">
+      <div class="order-box">
+        <h3>Order Summary</h3>
+        <div class="items-list" id="orderItemsList"></div>
+
+        <div style="margin-top:12px;">
+          <div style="display:flex; justify-content:space-between;"><div class="muted">Subtotal</div><div id="osub">Rs 0</div></div>
+          <div style="display:flex; justify-content:space-between;"><div class="muted">Delivery</div><div id="odel">Rs 0</div></div>
+          <div style="display:flex; justify-content:space-between; font-weight:700; font-size:18px;"><div>Total</div><div id="otot">Rs 0</div></div>
+        </div>
+
+        <div class="order-meta" id="orderMeta"></div>
+      </div>
+
+      <div class="order-box">
+        <h3>Customer Details</h3>
+        <div id="custDetails"></div>
+
+        <div style="margin-top:16px;">
+          <button class="btn-primary" id="resendEmailBtn">Send Email Again</button>
+          <button class="btn-ghost" onclick="window.location.href='shop.html'">Return to Shop</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- EmailJS SDK (loaded inline here, no head changes) -->
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
   <script>
   (function(){
-    // Initialize EmailJS with your Public Key
-    if(window.emailjs) try{ emailjs.init('YLmVaZyqcvzWRW21M'); } catch(e){ console.warn(e); }
+    const SERVICE_ID = 'service_4b56iwh';
+    const TEMPLATE_ID = 'template_48izllf';
+    const PUBLIC_KEY = 'YLmVaZyqcvzWRW21M';
+    const DELIVERY_CHARGE = 200;
 
-    // Compose email payload using stored checkout data, then send.
-    function safeParse(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; } }
-    const customer = safeParse('checkout_customer') || {};
-    const summary = safeParse('checkout_summary') || { subtotal:0, delivery:0, total:0 };
+    if(window.emailjs) try{ emailjs.init(PUBLIC_KEY); } catch(e){ console.warn(e); }
+
+    function safeParse(k){ try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){return null;} }
     const cart = safeParse('checkout_cart') || safeParse('cart') || [];
+    const summary = safeParse('checkout_summary') || { subtotal:0, delivery:DELIVERY_CHARGE, total:0 };
+    const customer = safeParse('checkout_customer') || {};
     const payment = safeParse('checkout_payment') || { method: 'N/A' };
     const orderId = localStorage.getItem('checkout_order_id') || ('ORD' + Date.now().toString().slice(-8));
 
-    // Build items string for email (simple HTML list)
-    function buildItemsHtml(){
-      if(!cart || !cart.length) return '<p>No items</p>';
-      let html = '<ul>';
+    // Render items
+    const itemsContainer = document.getElementById('orderItemsList');
+    itemsContainer.innerHTML = '';
+    if(!cart || cart.length === 0){
+      itemsContainer.innerHTML = '<div class="muted">No items in cart</div>';
+    } else {
       cart.forEach(it => {
-        html += `<li>${it.title} x${it.qty||1} — Rs ${(it.price*(it.qty||1)).toFixed(2)}</li>`;
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `<div>${it.title} <span class="muted">x${it.qty||1}</span></div><div>Rs ${Number((it.price*(it.qty||1))).toFixed(2)}</div>`;
+        itemsContainer.appendChild(div);
       });
-      html += '</ul>';
-      return html;
     }
 
-    // Fill on-page info
-    document.getElementById('orderInfo').innerHTML =
-      `Order ID: <strong>${orderId}</strong><br>Payment: <strong>${payment.method}</strong><br>Total: <strong>Rs ${Number(summary.total||0).toFixed(2)}</strong>`;
+    // Render totals & customer
+    const subtotal = Number(summary.subtotal || cart.reduce((s,i)=> s + (i.price*(i.qty||1)),0));
+    const delivery = Number(summary.delivery || DELIVERY_CHARGE);
+    const total = Number(summary.total || (subtotal + delivery));
 
-    // Auto-send email when page loads (best UX: user sees thank you and email is sent)
+    document.getElementById('osub').textContent = 'Rs ' + subtotal.toFixed(2);
+    document.getElementById('odel').textContent = 'Rs ' + delivery.toFixed(2);
+    document.getElementById('otot').textContent = 'Rs ' + total.toFixed(2);
+
+    document.getElementById('custDetails').innerHTML = `
+      <div><strong>${customer.name || 'Customer'}</strong></div>
+      <div class="muted">${customer.email || ''}</div>
+      <div style="margin-top:8px;">${(customer.street||'')?.replace(/\n/g,'<br>') || ''}</div>
+      <div class="muted" style="margin-top:8px;">${customer.city || ''} • ${customer.country || ''}</div>
+      <div style="margin-top:8px;"><strong>Payment:</strong> ${payment.method || ''}</div>
+      <div style="margin-top:8px;"><strong>Order ID:</strong> ${orderId}</div>
+    `;
+
+    document.getElementById('orderMeta').innerHTML = `
+      <div style="font-size:14px; color:#444;"><strong>Order ID:</strong> ${orderId}</div>
+      <div class="muted" style="margin-top:6px;">Placed: ${new Date().toLocaleString()}</div>
+    `;
+
+    // Build HTML list for email (items)
+   function buildItemsHtml(){
+  const cart = JSON.parse(localStorage.getItem(LS_CART_KEY) || '[]');
+  let html = '<ul>';
+  cart.forEach(it=>{
+    html += `<li>${it.title} x${it.qty} — $${(it.price*it.qty).toFixed(2)}</li>`;
+  });
+  html += '</ul>';
+  return html;
+}
+
+
+    // send email via EmailJS
     async function sendOrderEmail(){
       const templateParams = {
         name: customer.name || 'Customer',
         email: customer.email || '',
-        address: (customer.street ? customer.street + ', ' : '') + (customer.city? customer.city + ', ':'') + (customer.country || ''),
+        address: (customer.street || '') + (customer.city ? ', ' + customer.city : '') + (customer.country ? ', ' + customer.country : ''),
         payment_method: payment.method || '',
-        subtotal: 'Rs ' + Number(summary.subtotal||0).toFixed(2),
-        delivery: 'Rs ' + Number(summary.delivery||0).toFixed(2),
-        total: 'Rs ' + Number(summary.total||0).toFixed(2),
+        subtotal: 'Rs ' + subtotal.toFixed(2),
+        delivery: 'Rs ' + delivery.toFixed(2),
+        total: 'Rs ' + total.toFixed(2),
         order_id: orderId,
         items_html: buildItemsHtml()
       };
 
       try {
-        // send using the service & template you gave me
-        await emailjs.send('service_4b56iwh', 'template_48izllf', templateParams);
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
         console.info('Order email sent');
       } catch(err){
-        console.error('EmailJS send error:', err);
+        console.error('EmailJS error:', err);
       }
     }
 
-    // Call once (fire-and-forget)
+    // Auto send when page loads
     sendOrderEmail();
 
-    // Resend button
+    // resend button
     document.getElementById('resendEmailBtn').addEventListener('click', function(){
       sendOrderEmail();
-      alert('Email sent (or attempted). Check console for details if something fails.');
+      alert('Email sent (or attempted). If it fails, check console for details.');
     });
 
-    // OPTIONAL: clear stored checkout data if you want
+    // OPTIONAL: clear checkout localStorage keys if you want after confirming
     // localStorage.removeItem('checkout_cart');
     // localStorage.removeItem('checkout_summary');
     // localStorage.removeItem('checkout_customer');
@@ -170,17 +255,6 @@
 
 </section>
 <!-- ====== END STEP 3 ====== -->
-
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="separator">
@@ -279,6 +353,7 @@
 
 <script src="./shop.js"></script>
 <script src="cart.js"></script>
+<script src="./checkout.js"></script>
 
 
 

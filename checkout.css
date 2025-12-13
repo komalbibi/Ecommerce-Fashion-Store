@@ -202,3 +202,53 @@ h1{
   .sidebar{ width:100%; margin-top:18px; }
   .steps .step::after{ right:-8%; width: 110%; }
 }
+
+
+.checkout-input {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid #d8d8d8;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.checkout-input:focus {
+    border-color: #ff6347;
+    box-shadow: 0 0 5px rgba(255, 99, 71, 0.3);
+}
+
+/* CHECKOUT PROGRESS BAR */
+.checkout-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0 35px;
+    width: 100%;
+    gap: 10px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.bar {
+    height: 5px;
+    background: #ddd;
+    border-radius: 20px;
+    transition: .3s ease;
+}
+
+/* ACTIVE GREEN */
+.active {
+    background: #28a745 !important;
+}

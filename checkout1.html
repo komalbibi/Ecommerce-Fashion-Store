@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="shop.css">
     <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
     <link rel="stylesheet" href="checkout.css">
-
- <style>
-  /* Scoped CSS - paste inside page so no head edits required */
+      <style>
+  /* Scoped CSS for checkout main only */
   .checkout-wrap{ max-width:1100px; margin:34px auto; display:flex; gap:30px; align-items:flex-start; padding:10px; }
   .checkout-left{ flex:1; background:#fff; padding:24px; border-radius:8px; border:1px solid #ececec; }
   .checkout-right{ width:340px; border:1px solid #ececec; padding:20px; border-radius:8px; background:#fff; }
@@ -22,8 +21,8 @@
   .field-row .col{ flex:1; display:flex; flex-direction:column; }
   label.small{ font-size:13px; color:#555; margin-bottom:6px; }
   input.checkout-input, textarea.checkout-input, select.checkout-input{ padding:10px 12px; border:1px solid #e6e6e6; border-radius:6px; outline:none; font-size:14px; }
-  textarea.checkout-input{ resize:vertical; min-height:86px; }
-  .btn-checkout{ margin-top:12px; background:#111; color:#fff; padding:10px 18px; border-radius:6px; border:none; cursor:pointer; font-weight:700; }
+  textarea.checkout-input{ resize:vertical; min-height:96px; }
+  .btn-checkout{ margin-top:12px; background:  #28a745; color:#fff; padding:10px 18px; border-radius:6px; border:none; cursor:pointer; font-weight:700; }
   .summary-title{ font-weight:700; margin-bottom:12px; }
   .summary-item{ display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px dashed #eee; }
   .summary-item img{ width:56px; height:56px; object-fit:cover; border-radius:6px; }
@@ -31,6 +30,8 @@
   .muted{ color:#888; font-size:13px; }
   @media (max-width:980px){ .checkout-wrap{ flex-direction:column } .checkout-right{ width:100% } }
   </style>
+
+
 
 </head>
 
@@ -83,7 +84,8 @@
       <nav class="breadcrumbs">
         <a href="#" class="bc-link">Home</a>
         <span class="bc-sep">|</span>
-        <span class="bc-current">Checkout</span>
+    
+        <span class="bc-current" style="color: #FF8E8E ;">Checkout</span>
       </nav>
 
       <div class="hero-divider"></div>
@@ -100,15 +102,33 @@
 <!-- ====== CHECKOUT STEP 1 (MAIN CONTENT) ====== -->
 <section class="checkout-section" aria-label="Checkout - Order Details">
 
- 
+
 
   <div class="checkout-wrap">
     <div class="checkout-left">
-      <div class="checkout-progress" aria-hidden="true">
-        <div class="cp-step active">1. Order Details</div>
-        <div class="cp-step">2. Payment Method</div>
-        <div class="cp-step">3. Complete</div>
-      </div>
+     
+     
+
+ <div class="checkout-progress">
+
+    <div class="step">
+        <span class="label">Order Details</span>
+        <div class="bar active"></div>
+    </div>
+
+    <div class="step">
+        <span class="label">Payment Method</span>
+        <div class="bar"></div>
+    </div>
+
+    <div class="step">
+        <span class="label">Complete Order</span>
+        <div class="bar"></div>
+    </div>
+
+</div>
+
+
 
       <h2>Contact & Delivery</h2>
 
@@ -137,7 +157,10 @@
 
         <div style="margin-top:8px;">
           <label class="small">Street address *</label>
-          <input id="c_street" class="checkout-input" placeholder="Street, building, apartment" required>
+ <input type="text" id="c_street" class="checkout-input" 
+placeholder="Street, building, apartment" required>
+
+
         </div>
 
         <div class="field-row" style="margin-top:12px;">
@@ -179,23 +202,18 @@
       </div>
     </aside>
   </div>
-
-  <script>
-  /* Checkout1 JS - stores form data and navigates to checkout2 */
+ <script>
+  /* Checkout1 JS: reads your cart (localStorage "cart"), renders, saves customer and summary */
   (function(){
-    // Attempts to read cart from common keys, fallback to small sample
+    const DELIVERY_CHARGE = 200;
+
+    // read cart from your localStorage key 'cart' (matches your cart.js)
     function getCart(){
-      const candidates = ['cart','cart_items','myCart','checkout_cart_v1','CART'];
-      for(const k of candidates){
-        const raw = localStorage.getItem(k);
-        if(raw){
-          try { const parsed = JSON.parse(raw); if(Array.isArray(parsed)) return parsed; } catch(e){}
-        }
-      }
-      // fallback sample (so UI works out-of-the-box)
+      try{ const raw = localStorage.getItem('cart'); if(raw) return JSON.parse(raw); }catch(e){}
+      // fallback sample
       return [
-        { id:1, title:"Cotton Shirt (S)", price:1799, qty:1, img:"./shop-images/p1.jpg" },
-        { id:2, title:"Spray Skirt", price:3299, qty:1, img:"./shop-images/p2.jpg" }
+        { id:1, title:"Cotton Shirt (S)", price:1799, qty:1, image:"./shop-images/p1.jpg" },
+        { id:2, title:"Spray Skirt", price:3299, qty:1, image:"./shop-images/p2.jpg" }
       ];
     }
 
@@ -210,29 +228,31 @@
         subtotal += it.price * (it.qty || 1);
         const row = document.createElement('div');
         row.className = 'summary-item';
-        row.innerHTML = `<img src="${it.img}" alt=""><div style="flex:1">
-          <div style="font-weight:600">${it.title}</div>
-          <div class="muted">Qty: ${it.qty||1} • Rs ${Number(it.price).toFixed(2)}</div>
-        </div><div style="font-weight:700">Rs ${(it.price*(it.qty||1)).toFixed(2)}</div>`;
+        row.innerHTML = `<img src="${it.image||it.img||'./images/placeholder.png'}" alt="">
+          <div style="flex:1">
+            <div style="font-weight:600">${it.title}</div>
+            <div class="muted">Qty: ${it.qty||1} • Rs ${Number(it.price).toFixed(2)}</div>
+          </div>
+          <div style="font-weight:700">Rs ${(it.price*(it.qty||1)).toFixed(2)}</div>`;
         container.appendChild(row);
       });
-      const delivery = 150; // fixed delivery charge - you can change
+
+      const delivery = DELIVERY_CHARGE;
       const total = subtotal + delivery;
       document.getElementById('subtotalText').textContent = formatR(subtotal);
       document.getElementById('deliveryText').textContent = formatR(delivery);
       document.getElementById('totalText').textContent = formatR(total);
-      // store cart summary for other pages
-      try{
-        localStorage.setItem('checkout_summary', JSON.stringify({ subtotal, delivery, total }));
-        localStorage.setItem('checkout_cart', JSON.stringify(cart));
-      }catch(e){}
+
+      // store for later pages
+      localStorage.setItem('checkout_cart', JSON.stringify(cart));
+      localStorage.setItem('checkout_summary', JSON.stringify({ subtotal, delivery, total }));
     }
 
     renderSummary();
 
     document.getElementById('toPaymentBtn').addEventListener('click', function(e){
       e.preventDefault();
-      // basic validation
+      // validation
       const fullname = document.getElementById('c_fullname').value.trim();
       const email = document.getElementById('c_email').value.trim();
       const street = document.getElementById('c_street').value.trim();
@@ -244,7 +264,6 @@
         return;
       }
 
-      // save values to localStorage for next pages
       const payload = {
         name: fullname,
         email: email,
@@ -257,11 +276,11 @@
       };
       localStorage.setItem('checkout_customer', JSON.stringify(payload));
 
-      // navigate to payment page
+      // go to payment
       window.location.href = 'checkout2.html';
     });
 
-    // Pre-fill if user returned from step 2
+    // prefill if user returned
     try{
       const cached = JSON.parse(localStorage.getItem('checkout_customer') || '{}');
       if(cached && Object.keys(cached).length){
@@ -277,9 +296,11 @@
     }catch(e){}
   })();
   </script>
+ 
 
 </section>
 <!-- ====== END STEP 1 ====== -->
+
 
 
 
