@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (wishlist.length === 0) {
         wishlistGrid.innerHTML = `
             <p class="empty">Your wishlist is empty 😔</p>
-             
+            
           `;
         return;
     }

@@ -14,6 +14,11 @@
 
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="shop.css">
+  <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+
+
 </head>
 
 <body>
@@ -30,39 +35,14 @@
         <li><a href="#">Home</a></li>
         <li><a href="./shop.html">Shop</a></li>
         <li><a href="./blog.html">Blog</a></li>
-        <li><a href="./about.html">About Us</a></li>
+        <li><a href="./about.html">About</a></li>
         <li><a href="./contact.html">Contact</a></li>
       </ul>
-
-      <!-- <div class="nav-right">
-        <span class="icon"><img src="./images/search.svg" alt=""></span>
-        <span class="icon"><img src="./images/user.svg" alt=""></span>
-        <span class="icon"><img src="./images/heart.svg" alt=""></span>
-        <span class="icon"><img src="./images/shopping-bag.svg" alt=""></span>
-      </div> -->
-
-      <!-- <div class="nav-right">
-    <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
-    <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-
-
-    <span class="icon"><img id="nav-wishlist" src="./images/heart.svg"></span>
-    <span class="icon"><img id="nav-cart" src="./images/shopping-bag.svg"></span>
-</div> -->
 
       <div class="nav-right">
         <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
         <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-        <!-- <span class="icon nav-icon">
-        <img id="nav-wishlist" src="./images/heart.svg" />
-        <span id="wishlist-count" class="count">0</span>
-    </span>
-
-    <span class="icon nav-icon">
-        <img id="nav-cart" src="./images/shopping-bag.svg" />
-        <span id="cart-count" class="count">0</span>
-    </span> -->
-
+      
         <div class="shop-actions">
           <button class="icon-btn" id="wishlistBtn" title="Wishlist" onclick="window.location.href='wishlist.html'">
             <img src="./images/heart.svg" alt="Wishlist" />
@@ -77,9 +57,62 @@
 
 
     </nav>
+<div id="popupOverlay"></div>
+
+<!-- Login Popup -->
+<div id="loginPopup">
+  <div class="popup-header">
+    <h2>Welcome Back</h2>
+    <button id="closePopup">&times;</button>
+  </div>
+
+  <div class="popup-body">
+
+    <!-- Google Login -->
+    <button class="social-btn" id="googleLogin">
+      <img src="./images/google.svg" alt="Google" /> Login with Google
+    </button>
+
+    <div class="divider"><span>or</span></div>
+
+    <!-- Email Login -->
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="emailLogin" class="primary-btn">Login</button>
+    <button id="resetPassword" class="link-btn">Forgot Password?</button>
+
+    <div class="divider"><span>or</span></div>
+
+    <!-- Phone Login -->
+    <input type="text" id="phoneNumber" placeholder="+923001234567">
+    <button id="phoneLogin" class="primary-btn">Login with Phone</button>
+    <div id="recaptcha-container"></div>
+
+  </div>
+</div>
+
 
   </header>
   <!-- header end -->
+
+<!-- Overlay -->
+<div class="menu-overlay"></div>
+
+<!-- Drawer -->
+<div class="mobile-drawer">
+  <button class="drawer-close">✕</button>
+
+  <ul class="drawer-menu">
+    <li><a href="#">Home</a></li>
+   <li><a href="./shop.html">Shop</a></li>
+    <li><a href="./blog.html">Blog</a></li>
+     <li><a href="./about.html">About</a></li>
+    <li><a href="./contact.html">Contact</a></li>
+  </ul>
+</div>
+
+
+
 
   <!-- main start -->
   <main>
@@ -519,7 +552,7 @@
 
         <h2 style="position: absolute; color: black; margin-top: -20%; margin-left: 30px; font-size: 30px;"><span
             style="font-weight: bold; ">Deal</span> of the week</h2>
-        <h1 style="font-size: 120px; position: absolute; color: black; margin-top: -10%; margin-left: 30px;">Stay Warm
+        <h1 style="font-size: 100px; position: absolute; color: black; margin-top: -10%; margin-left: 30px;">Stay Warm
           <br> And Trendy
         </h1>
         <h2 style="position: absolute; margin-top: 190px; font-size: 20px; margin-left: 50px;">The countdown is finished
@@ -857,6 +890,126 @@
   }
 })();
 </script>
+
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const drawer = document.querySelector('.mobile-drawer');
+  const overlay = document.querySelector('.menu-overlay');
+  const closeBtn = document.querySelector('.drawer-close');
+
+  hamburger.addEventListener('click', () => {
+    drawer.classList.add('active');
+    overlay.classList.add('active');
+  });
+
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  function closeDrawer(){
+    drawer.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+</script>
+
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+
+<script>
+  // --- Firebase Config ---
+  const firebaseConfig = {
+  apiKey: "AIzaSyD5LDzfuxprc2RNuyOvzosHr56JLgzqy9o",
+  authDomain: "ecommerce-fashion-store-ecdf9.firebaseapp.com",
+  projectId: "ecommerce-fashion-store-ecdf9",
+  storageBucket: "ecommerce-fashion-store-ecdf9.firebasestorage.app",
+  messagingSenderId: "25564492774",
+  appId: "1:25564492774:web:08a3910198bdb16a3cdc27"
+};
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // --- Open popup on icon click ---
+  document.getElementById("nav-user").addEventListener("click", () => {
+    document.getElementById("loginPopup").style.display = "block";
+  });
+
+  
+  // --- Close popup ---
+  document.getElementById("closePopup").addEventListener("click", () => {
+    document.getElementById("loginPopup").style.display = "none";
+  });
+
+  document.getElementById("nav-user").addEventListener("click", () => {
+    document.getElementById("loginPopup").style.display = "block";
+    document.getElementById("popupOverlay").style.display = "block";
+});
+
+document.getElementById("closePopup").addEventListener("click", () => {
+    document.getElementById("loginPopup").style.display = "none";
+    document.getElementById("popupOverlay").style.display = "none";
+});
+
+  // --- Email login ---
+  document.getElementById("emailLogin").addEventListener("click", function(){
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    if(!email || !password){ alert("Enter email & password"); return; }
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        alert("Logged in as " + userCredential.user.email);
+        document.getElementById("loginPopup").style.display = "none";
+      })
+      .catch(error => alert(error.message));
+  });
+
+  // --- Password reset ---
+  document.getElementById("resetPassword").addEventListener("click", function(){
+    const email = document.getElementById("email").value;
+    if(!email){ alert("Enter your email first"); return; }
+
+    auth.sendPasswordResetEmail(email)
+      .then(() => alert("Reset email sent!"))
+      .catch(error => alert(error.message));
+  });
+
+  // --- Google login ---
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  document.getElementById("googleLogin").addEventListener("click", function(){
+    auth.signInWithPopup(googleProvider)
+      .then(result => {
+        alert("Logged in as " + result.user.displayName);
+        document.getElementById("loginPopup").style.display = "none";
+      })
+      .catch(error => alert(error.message));
+  });
+
+  // --- Phone login ---
+  document.getElementById("phoneLogin").addEventListener("click", function(){
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    if(!phoneNumber){ alert("Enter phone number"); return; }
+
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'invisible',
+      'callback': (response) => { console.log("Captcha verified"); }
+    });
+
+    auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+      .then(confirmationResult => {
+        const code = prompt("Enter OTP sent to your phone:");
+        return confirmationResult.confirm(code);
+      })
+      .then(result => {
+        alert("Phone login successful: " + result.user.phoneNumber);
+        document.getElementById("loginPopup").style.display = "none";
+      })
+      .catch(error => alert(error.message));
+  });
+</script>
+
+
   <script src="./shop.js"></script>
   <!-- <script src="./Script.js"></script> -->
 </body>
