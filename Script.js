@@ -106,5 +106,17 @@
   window.initPromoViewMore = initPromoViewMore;
 })();
 
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest(".add-to-cart");
+  if (!btn) return;
+
+  e.preventDefault();
+
+  const card = btn.closest(".product-card");
+  const id = card.dataset.id;
+
+  addToCart(id);
+});
+
 
 

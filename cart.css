@@ -266,3 +266,8 @@
     color: red;
     transform: scale(1.2);
 }
+
+.continue-btn:hover {
+  background-color:  #FF8E8E; /* light pink */
+  color: #fff;
+}

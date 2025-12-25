@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion Store - Checkout</title>
-
+<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="shop.css">
     <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
@@ -204,98 +204,87 @@ placeholder="Street, building, apartment" required>
   </div>
  <script>
   /* Checkout1 JS: reads your cart (localStorage "cart"), renders, saves customer and summary */
-  (function(){
-    const DELIVERY_CHARGE = 200;
+ (function(){
+  const DELIVERY_CHARGE = 16; // in $ to match cart
 
-    // read cart from your localStorage key 'cart' (matches your cart.js)
-    function getCart(){
-      try{ const raw = localStorage.getItem('cart'); if(raw) return JSON.parse(raw); }catch(e){}
-      // fallback sample
-      return [
-        { id:1, title:"Cotton Shirt (S)", price:1799, qty:1, image:"./shop-images/p1.jpg" },
-        { id:2, title:"Spray Skirt", price:3299, qty:1, image:"./shop-images/p2.jpg" }
-      ];
-    }
+  function getCart(){
+    try { 
+      const raw = localStorage.getItem('cart'); 
+      if(raw) return JSON.parse(raw); 
+    } catch(e){}
+    return [];
+  }
 
-    function formatR(val){ return 'Rs ' + Number(val).toFixed(2); }
+  function formatUSD(val){ 
+    return '$' + Number(val).toFixed(2); 
+  }
 
-    function renderSummary(){
-      const cart = getCart();
-      const container = document.getElementById('summaryItems');
-      container.innerHTML = '';
-      let subtotal = 0;
-      cart.forEach(it=>{
-        subtotal += it.price * (it.qty || 1);
-        const row = document.createElement('div');
-        row.className = 'summary-item';
-        row.innerHTML = `<img src="${it.image||it.img||'./images/placeholder.png'}" alt="">
-          <div style="flex:1">
-            <div style="font-weight:600">${it.title}</div>
-            <div class="muted">Qty: ${it.qty||1} • Rs ${Number(it.price).toFixed(2)}</div>
-          </div>
-          <div style="font-weight:700">Rs ${(it.price*(it.qty||1)).toFixed(2)}</div>`;
-        container.appendChild(row);
-      });
+  function renderSummary(){
+    const cart = getCart();
+    const container = document.getElementById('summaryItems');
+    container.innerHTML = '';
+    let subtotal = 0;
 
-      const delivery = DELIVERY_CHARGE;
-      const total = subtotal + delivery;
-      document.getElementById('subtotalText').textContent = formatR(subtotal);
-      document.getElementById('deliveryText').textContent = formatR(delivery);
-      document.getElementById('totalText').textContent = formatR(total);
-
-      // store for later pages
-      localStorage.setItem('checkout_cart', JSON.stringify(cart));
-      localStorage.setItem('checkout_summary', JSON.stringify({ subtotal, delivery, total }));
-    }
-
-    renderSummary();
-
-    document.getElementById('toPaymentBtn').addEventListener('click', function(e){
-      e.preventDefault();
-      // validation
-      const fullname = document.getElementById('c_fullname').value.trim();
-      const email = document.getElementById('c_email').value.trim();
-      const street = document.getElementById('c_street').value.trim();
-      const city = document.getElementById('c_city').value.trim();
-      const country = document.getElementById('c_country').value.trim();
-
-      if(!fullname || !email || !street || !city || !country){
-        alert('Please fill required fields: name, email, street, city and country.');
-        return;
-      }
-
-      const payload = {
-        name: fullname,
-        email: email,
-        phone: document.getElementById('c_phone').value.trim(),
-        postal: document.getElementById('c_postal').value.trim(),
-        street: street,
-        city: city,
-        country: country,
-        deliveryDay: document.getElementById('c_deliveryday').value.trim()
-      };
-      localStorage.setItem('checkout_customer', JSON.stringify(payload));
-
-      // go to payment
-      window.location.href = 'checkout2.html';
+    cart.forEach(it=>{
+      subtotal += it.price * (it.qty || 1);
+      const row = document.createElement('div');
+      row.className = 'summary-item';
+      row.innerHTML = `
+        <img src="${it.image || it.img || './images/placeholder.png'}" alt="${it.title || it.name}">
+        <div style="flex:1">
+          <div style="font-weight:600">${it.title || it.name}</div>
+          <div class="muted">Qty: ${it.qty || 1} • ${formatUSD(it.price)}</div>
+        </div>
+        <div style="font-weight:700">${formatUSD(it.price * (it.qty || 1))}</div>`;
+      container.appendChild(row);
     });
 
-    // prefill if user returned
-    try{
-      const cached = JSON.parse(localStorage.getItem('checkout_customer') || '{}');
-      if(cached && Object.keys(cached).length){
-        document.getElementById('c_fullname').value = cached.name || '';
-        document.getElementById('c_email').value = cached.email || '';
-        document.getElementById('c_phone').value = cached.phone || '';
-        document.getElementById('c_postal').value = cached.postal || '';
-        document.getElementById('c_street').value = cached.street || '';
-        document.getElementById('c_city').value = cached.city || '';
-        document.getElementById('c_country').value = cached.country || '';
-        document.getElementById('c_deliveryday').value = cached.deliveryDay || '';
-      }
-    }catch(e){}
-  })();
-  </script>
+    const delivery = DELIVERY_CHARGE;
+    const total = subtotal + delivery;
+
+    document.getElementById('subtotalText').textContent = formatUSD(subtotal);
+    document.getElementById('deliveryText').textContent = formatUSD(delivery);
+    document.getElementById('totalText').textContent = formatUSD(total);
+
+    localStorage.setItem('checkout_cart', JSON.stringify(cart));
+    localStorage.setItem('checkout_summary', JSON.stringify({ subtotal, delivery, total }));
+  }
+
+  renderSummary();
+
+  // Continue button logic remains the same
+  document.getElementById('toPaymentBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    const fullname = document.getElementById('c_fullname').value.trim();
+    const email = document.getElementById('c_email').value.trim();
+    const street = document.getElementById('c_street').value.trim();
+    const city = document.getElementById('c_city').value.trim();
+    const country = document.getElementById('c_country').value.trim();
+
+    if(!fullname || !email || !street || !city || !country){
+      alert('Please fill required fields: name, email, street, city and country.');
+      return;
+    }
+
+    const payload = {
+      name: fullname,
+      email: email,
+      phone: document.getElementById('c_phone').value.trim(),
+      postal: document.getElementById('c_postal').value.trim(),
+      street: street,
+      city: city,
+      country: country,
+      deliveryDay: document.getElementById('c_deliveryday').value.trim()
+    };
+    localStorage.setItem('checkout_customer', JSON.stringify(payload));
+
+    window.location.href = 'checkout2.html';
+  });
+
+})();
+
+ 
+ </script>
  
 
 </section>

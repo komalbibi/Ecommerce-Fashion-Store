@@ -250,5 +250,16 @@ h1{
 
 /* ACTIVE GREEN */
 .active {
-    background: #28a745 !important;
+    background: #FF8E8E !important;
+}
+.btn-checkout{
+  background-color: #0e0e0e;
+  color: white;
+  font-weight: 500;
+
+  transition: transform 0.3s all;
+}
+.btn-checkout:hover {
+  background-color:  #FF8E8E; /* light pink */
+  color: #fff;
 }

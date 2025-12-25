@@ -1,22 +1,107 @@
-// shop-app.js (cleaned & fixed)
+// shop-app.js
 (function () {
   'use strict';
 
-  // Demo products (replace with your own)
-  const products = [
-    { id: 1, name: "Ladies cross body bag", price: 50, image: "./shop-images/product-item_1.jpg.jpeg" },
-    { id: 2, name: "Product 2", price: 60, image: "./shop-images/product-item_2.jpg.jpeg" },
-    { id: 3, name: "Product 3", price: 70, image: "./shop-images/product-item_3.jpg.jpeg" },
-    { id: 4, name: "Product 4", price: 55, image: "./shop-images/product-item_4.jpg.jpeg" },
-    { id: 5, name: "Product 5", price: 65, image: "./shop-images/product-item_5.jpg.jpeg" },
-    { id: 6, name: "Product 6", price: 45, image: "./shop-images/product-item_6.jpg.jpeg" },
-    { id: 7, name: "Product 7", price: 80, image: "./shop-images/product-item_7.jpg.jpeg" },
-    { id: 8, name: "Product 8", price: 75, image: "./shop-images/product-item_8.jpg.jpeg" },
-    { id: 9, name: "Product 9", price: 40, image: "./shop-images/product-item_9.jpg.jpeg" },
-    { id: 10, name: "Product 10", price: 95, image: "./shop-images/product-item_10.jpg.jpeg" },
-    { id: 11, name: "Product 11", price: 85, image: "./shop-images/product-item_11.jpg.jpeg" },
-    { id: 12, name: "Product 12", price: 90, image: "./shop-images/product-item_12.jpg.jpeg" }
-  ];
+  // product
+ const products = [
+  {
+    id: 1,
+    name: "Ladies cross body bag",
+    price: 50,
+    image: "./shop-images/product-item_1.jpg.jpeg",
+    category: "women",
+    colors: ["black", "red"]
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    price: 60,
+    image: "./shop-images/product-item_2.jpg.jpeg",
+    category: "men",
+    colors: ["black", "blue"]
+  },
+  {
+    id: 3,
+    name: "Product 3",
+    price: 70,
+    image: "./shop-images/product-item_3.jpg.jpeg",
+    category: "women",
+    colors: ["red", "yellow"]
+  },
+  {
+    id: 4,
+    name: "Product 4",
+    price: 55,
+    image: "./shop-images/product-item_4.jpg.jpeg",
+    category: "accessories",
+    colors: ["black"]
+  },
+  {
+    id: 5,
+    name: "Product 5",
+    price: 65,
+    image: "./shop-images/product-item_5.jpg.jpeg",
+    category: "new",
+    colors: ["blue", "black"]
+  },
+  {
+    id: 6,
+    name: "Product 6",
+    price: 45,
+    image: "./shop-images/product-item_6.jpg.jpeg",
+    category: "men",
+    colors: ["brown", "black"]
+  },
+  {
+    id: 7,
+    name: "Product 7",
+    price: 80,
+    image: "./shop-images/product-item_7.jpg.jpeg",
+    category: "women",
+    colors: ["yellow", "red"]
+  },
+  {
+    id: 8,
+    name: "Product 8",
+    price: 75,
+    image: "./shop-images/product-item_8.jpg.jpeg",
+    category: "accessories",
+    colors: ["blue"]
+  },
+  {
+    id: 9,
+    name: "Product 9",
+    price: 40,
+    image: "./shop-images/product-item_9.jpg.jpeg",
+    category: "new",
+    colors: ["black"]
+  },
+  {
+    id: 10,
+    name: "Product 10",
+    price: 95,
+    image: "./shop-images/product-item_10.jpg.jpeg",
+    category: "men",
+    colors: ["blue", "black"]
+  },
+  {
+    id: 11,
+    name: "Product 11",
+    price: 85,
+    image: "./shop-images/product-item_11.jpg.jpeg",
+    category: "women",
+    colors: ["red", "blue"]
+  },
+  {
+    id: 12,
+    name: "Product 12",
+    price: 90,
+    image: "./shop-images/product-item_12.jpg.jpeg",
+    category: "accessories",
+    colors: ["yellow", "black"]
+  }
+];
+
 
   // Auto-expand demo products if needed
   (function expandDemoIfNeeded() {
@@ -105,6 +190,31 @@
       });
     }
 
+document.addEventListener('click', function (e) {
+
+  /* ADD TO CART */
+  const cartBtn = e.target.closest('.action-cart');
+  if (cartBtn) {
+    const card = cartBtn.closest('.product-card');
+    if (!card) return;
+    const id = Number(card.dataset.id);
+    addToCart(id);
+    return;
+  }
+
+  /* QUICK VIEW */
+  const quickBtn = e.target.closest('.action-quick');
+  if (quickBtn) {
+    const card = quickBtn.closest('.product-card');
+    if (!card) return;
+    const id = Number(card.dataset.id);
+    window.location.href = `single-product.html?id=${id}`;
+    return;
+  }
+
+});
+
+
     // Delegate product clicks
     if (productGrid) {
       productGrid.addEventListener('click', (e) => {
@@ -154,26 +264,47 @@
     refreshCardStates();
   }
 
-  function renderCard(p) {
-    const tagHtml = p.tag ? `<div class="tag ${p.tag === 'sale' ? 'sale' : 'new'}">${String(p.tag).toUpperCase()}</div>` : '';
-    return `
-      <div class="product-card" data-id="${p.id}">
-        ${tagHtml}
-        <div class="wishlist btn-wishlist" title="Add to wishlist">${isInWishlist(p.id) ? '♥' : '♡'}</div>
-        <div class="product-image">
-          <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}">
-        </div>
-        <div class="product-info">
-          <h3>${escapeHtml(p.name)}</h3>
-          <p class="price">$${Number(p.price).toFixed(2)}</p>
-        </div>
-        <div class="product-actions">
-          <button class="action-quick" title="Quick view">Quick View</button>
-          <button class="action-cart" title="Add to cart">Add to Cart</button>
-        </div>
+function renderCard(p) {
+  return `
+    <div class="product-card" data-id="${p.id}">
+      
+      <div class="product-image">
+        <img src="${p.image}" alt="${p.name}">
+
+        <!-- ❤️ WISHLIST -->
+        <button class="btn-wishlist wishlist" aria-label="Add to wishlist">
+          ${isInWishlist(p.id) ? '♥' : '♡'}
+        </button>
       </div>
-    `;
-  }
+
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p class="price">$${Number(p.price).toFixed(2)}</p>
+      </div>
+
+      <div class="product-actions">
+        <button class="action-quick">Quick View</button>
+        <button class="action-cart">Add to Cart</button>
+      </div>
+
+    </div>
+  `;
+}
+
+
+// document.addEventListener("click", function (e) {
+//   const btn = e.target.closest(".action-cart");
+//   if (!btn) return;
+
+//   const card = btn.closest(".product-card");
+//   const id = Number(card.dataset.id);
+
+//   const product = products.find(p => p.id === id);
+//   if (!product) return;
+
+//   addToCart(product);
+// });
+
 
   // Pagination
   function renderPagination(pages) {
@@ -199,38 +330,54 @@
   function isInWishlist(id) { return state.wishlist.includes(Number(id)); }
   function isInCart(id) { return state.cart.includes(Number(id)); }
 
-  function toggleWishlist(id) {
-    id = Number(id);
-    if (isInWishlist(id)) {
-      state.wishlist = state.wishlist.filter(x => x !== id);
-      showToast('Removed from wishlist');
-    } else {
-      state.wishlist.push(id);
-      showToast('Added to wishlist');
-    }
-    saveState();
-    updateCounters();
-    refreshCardStates();
+ function toggleWishlist(id) {
+  id = Number(id);
+  const product = products.find(p => p.id === id);
+  if (!product) return;
+
+  let wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+  const exists = wishlistItems.find(item => item.id === id);
+
+  if (exists) {
+    wishlistItems = wishlistItems.filter(item => item.id !== id);
+    showToast('Removed from wishlist');
+  } else {
+    wishlistItems.push(product); // ✅ SAVE FULL PRODUCT
+    showToast('Added to wishlist');
   }
 
-  function addToCart(id) {
-    id = Number(id);
-    const product = products.find(p => p.id === id);
-    if (!product) return;
+  localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+  state.wishlist = wishlistItems.map(p => p.id);
+  updateCounters();
+  refreshCardStates();
+}
 
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    const idx = cartItems.findIndex(i => Number(i.id) === id);
-    if (idx === -1) {
-      cartItems.push({ ...product, qty: 1 });
-    } else {
-      cartItems[idx].qty = (cartItems[idx].qty || 1) + 1;
-    }
+ function addToCart(id) {
+  id = Number(id);
+  const product = products.find(p => p.id === id);
+  if (!product) return;
 
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-    state.cart = cartItems.map(x => Number(x.id));
-    updateCounters();
-    showToast('Added to cart');
+  let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const existing = cartItems.find(item => item.id === id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cartItems.push({
+      id: product.id,
+      name: product.name,   // ✅ FIX
+      price: product.price,
+      image: product.image,
+      qty: 1
+    });
   }
+
+  localStorage.setItem('cart', JSON.stringify(cartItems));
+  updateCounters();
+  showToast('Added to cart');
+}
 
   function saveState() {
     localStorage.setItem('wishlist', JSON.stringify(state.wishlist.map(id => ({ id }))));
@@ -274,3 +421,13 @@
   document.addEventListener('DOMContentLoaded', init);
 
 })();
+
+
+const cartBtn = document.getElementById('cartBtn');
+
+if (cartBtn) {
+  cartBtn.addEventListener('click', function (e) {
+    e.stopPropagation(); // 🔑 VERY IMPORTANT
+    window.location.href = 'cart.html';
+  });
+}

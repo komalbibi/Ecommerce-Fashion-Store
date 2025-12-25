@@ -13,52 +13,24 @@ html, body {
   height: 100%;
   overflow-x: hidden;
 }
- /* .shop-hero{
-    display: flex;
-    gap: 20px;
-    margin: 30px;
- }
 
-.shop-content{
-    width: 50%;
-    position: relative;
-}
-.shop-content img{
-    position: relative;
-    margin-left: -160px;
-}
 
-.shop h1{
-      width: 40%;
-    font-size: 90px;
-    color: black;
-    position: absolute;
-    top: 30%;
-    left: 10%;
-}
-hr{
-    position: absolute;
-    color: black;
-    width: 100%;
-    height: 6px;
-    margin-top: -20px;
-    
-    
-}
-.shop-hero-image{
-    width: 60%;
-    height: 400px;
-    background-image: url(./shop-images/banner-shop.jpg.jpeg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-} */
  /* SECTION CSS - include in your stylesheet */
 :root{
   --max-width:1200px;
   --accent:#e88d8d; /* breadcrumb pink */
   --text:#111;
 }
+
+.nav-left{
+ margin-left: 10px;
+ 
+}
+.nav-right{
+ margin-right: 10px;
+ 
+}
+
 
 /* container */
 .shop-hero{
@@ -180,7 +152,7 @@ hr{
   }
   .hero-right{
     flex: 1 1 100%;
-    order: 2; /* image below title if you prefer image below; set to 1 for image above */
+    order: 2; 
     justify-content: center;
     padding: 0 20px 20px 20px;
   }
@@ -247,7 +219,7 @@ hr{
 .btn-reset { background:transparent; border:1px solid #ddd; padding:10px 14px; cursor:pointer; }
 
 /* Main product area */
-.shop-main { }
+
 
 /* Product Grid */
 .product-grid {
@@ -367,10 +339,128 @@ hr{
   position: absolute;
   top: -4px;
   right: -8px;
-  background: #ff3e6c;
+  background: #e88d8d;
   color: #fff;
   font-size: 11px;
   padding: 2px 5px;
   border-radius: 50%;
 }
 
+
+
+.btn-apply:hover {
+  background-color: #e88d8d;
+  color: #fff;
+   transition: 0.25s ease;
+}
+
+/* Active filters box */
+.active-filters {
+  margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.active-filters span {
+  background: #222;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 20px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #111;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  display: none;          /* 🔑 IMPORTANT */
+  transition: opacity 0.3s ease;
+  z-index: 99999;
+}
+
+
+
+
+/* Empty wishlist Shop Now button */
+.empty-wishlist-action {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Center empty wishlist content */
+.empty-wishlist {
+  min-height: 30vh; /* centers vertically on page */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-wishlist p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* Shop Now button */
+.shop-now-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: #e88d8d;
+color: #fff;
+  transform: translateY(-2px);
+}
+/* Wishlist remove (X) button */
+.remove-wishlist {
+  color: #e63946 !important; /* RED */
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+}
+
+.remove-wishlist:hover {
+  color: #b00020 !important;
+}
+.btn-wishlist {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+
+
+.wishlist {
+  color: #e63946;
+}

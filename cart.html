@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion Store - Cart</title>
-
+<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="shop.css">
     <link rel="stylesheet" href="cart.css"> <!-- New CSS -->
-</head>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+<style>
+.checkout-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: black;
+  color: white;
+   font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.checkout-btn:hover {
+  background-color: #FF8E8E;
+  color: #fff;
+}
+
+</style>
+
+    </head>
+
 <body>
 
 <!-- HEADER (unchanged) -->
@@ -75,7 +98,7 @@
 
     <!-- LEFT SIDE: ITEMS -->
     <div class="cart-left">
-        <h2 class="cart-heading">Shopping Cart</h2>
+        
         <div id="cartItems" class="cart-items-list"></div>
     </div>
 
@@ -195,7 +218,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© All right reserved. Mollee 2021</p>
+       <p>© All right reserved. Fashion Store by Komal 2025</p>
 
       <div class="payments">
         <img src="./images/payment_1.png" alt="">

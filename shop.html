@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion store - Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion store - Shop</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="shop.css">
-      <!-- Bootstrap cdn -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">                
+  <link rel="stylesheet" href="shop.css">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap cdn -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <!-- fontawesome cdn -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
+
 <body>
-  
- <!-- header start -->
+
+  <!-- header start -->
   <header>
 
     <nav class="navbar">
@@ -30,35 +34,10 @@
         <li><a href="./contact.html">Contact</a></li>
       </ul>
 
-      <!-- <div class="nav-right">
-        <span class="icon"><img src="./images/search.svg" alt=""></span>
-        <span class="icon"><img src="./images/user.svg" alt=""></span>
-        <span class="icon"><img src="./images/heart.svg" alt=""></span>
-        <span class="icon"><img src="./images/shopping-bag.svg" alt=""></span>
-      </div> -->
-
-      <!-- <div class="nav-right">
-    <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
-    <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-
-
-    <span class="icon"><img id="nav-wishlist" src="./images/heart.svg"></span>
-    <span class="icon"><img id="nav-cart" src="./images/shopping-bag.svg"></span>
-</div> -->
-
       <div class="nav-right">
         <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
         <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-        <!-- <span class="icon nav-icon">
-        <img id="nav-wishlist" src="./images/heart.svg" />
-        <span id="wishlist-count" class="count">0</span>
-    </span>
-
-    <span class="icon nav-icon">
-        <img id="nav-cart" src="./images/shopping-bag.svg" />
-        <span id="cart-count" class="count">0</span>
-    </span> -->
-
+ 
         <div class="shop-actions">
           <button class="icon-btn" id="wishlistBtn" title="Wishlist" onclick="window.location.href='wishlist.html'">
             <img src="./images/heart.svg" alt="Wishlist" />
@@ -76,123 +55,127 @@
 
   </header>
   <!-- header end -->
-<main>
+  <main>
 
 
- <!-- SECTION HTML: paste into your page where needed -->
-<section class="shop-hero">
-  <div class="hero-inner">
-    <!-- LEFT: heading, dotted grid, breadcrumbs, divider -->
-    <div class="hero-left">
-      <span class="dot-grid" aria-hidden="true"></span>
+    <!-- SECTION HTML: paste into your page where needed -->
+    <section class="shop-hero">
+      <div class="hero-inner">
+        <!-- LEFT: heading, dotted grid, breadcrumbs, divider -->
+        <div class="hero-left">
+           <span class="dot-grid" aria-hidden="true"></span>
 
-      <h1 class="hero-title">Shop</h1>
+          <h1 class="hero-title">Shop</h1>
 
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="#" class="bc-link">Home</a>
-        <span class="bc-sep">|</span>
-        <span class="bc-current">Shop</span>
-      </nav>
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="#" class="bc-link">Home</a>
+            <span class="bc-sep">|</span>
+            <span class="bc-current">Shop</span>
+          </nav>
 
-      <div class="hero-divider" aria-hidden="true"></div>
-    </div>
+          <div class="hero-divider" aria-hidden="true"></div>
+        </div>
 
-    <!-- RIGHT: image -->
-    <div class="hero-right">
-      <!-- replace src with your image path -->
-      <img src="./shop-images/banner-shop.jpg.jpeg
+        <!-- RIGHT: image -->
+        <div class="hero-right">
+       
+          <img src="./shop-images/banner-shop.jpg.jpeg
       " alt="model" class="hero-image">
-    </div>
-  </div>
-</section>
+        </div>
+      </div>
+    </section>
 
-<!-- SHOP SECTION -->
-<section class="shop-section">
+    <!-- SHOP SECTION -->
+    <section class="shop-section">
 
-  <!-- header area: wishlist/cart counters (you can move into your top nav if you want) -->
-  <div class="shop-header">
-    <div class="shop-results" id="shopResults">Showing <span id="shownCount">0</span> products</div>
-    
-  </div>
+      <!-- header area: wishlist/cart counters  -->
+      <div class="shop-header">
+        <div class="shop-results" id="shopResults">Showing <span id="shownCount">0</span> products</div>
 
-  <div class="shop-grid">
-
-    <!-- SIDEBAR -->
-    <aside class="shop-sidebar">
-      <div class="filter-block">
-        <h3>Categories</h3>
-        <ul class="categories" id="categoryList">
-          <li><label><input type="radio" name="category" value="all" checked> All</label></li>
-          <li><label><input type="radio" name="category" value="men"> Men</label></li>
-          <li><label><input type="radio" name="category" value="women"> Women</label></li>
-          <li><label><input type="radio" name="category" value="accessories"> Accessories</label></li>
-          <li><label><input type="radio" name="category" value="new"> New Arrivals</label></li>
-        </ul>
       </div>
 
-      <div class="filter-block">
-        <h3>Price</h3>
-        <div class="price-range">
-          <div class="range-values">
-            <span id="priceMinLabel">$0</span> — <span id="priceMaxLabel">$200</span>
+      <div class="shop-grid">
+
+        <!-- SIDEBAR -->
+        <aside class="shop-sidebar">
+          <div class="filter-block">
+            <h3>Categories</h3>
+            <ul class="categories" id="categoryList">
+              <li><label><input type="radio" name="category" value="all" checked> All</label></li>
+              <li><label><input type="radio" name="category" value="men"> Men</label></li>
+              <li><label><input type="radio" name="category" value="women"> Women</label></li>
+              <li><label><input type="radio" name="category" value="accessories"> Accessories</label></li>
+              <li><label><input type="radio" name="category" value="new"> New Arrivals</label></li>
+            </ul>
           </div>
-          <input type="range" id="priceRange" min="0" max="200" value="200">
-        </div>
+
+          <div class="filter-block">
+            <h3>Price</h3>
+            <div class="price-range">
+              <div class="range-values">
+                <span id="priceMinLabel">$0</span> — <span id="priceMaxLabel">$200</span>
+              </div>
+              <input type="range" id="priceRange" min="0" max="200" value="200">
+            </div>
+          </div>
+
+          <div class="filter-block">
+            <h3>Colors</h3>
+            <div class="colors">
+              <label><input type="checkbox" value="black"> Black</label>
+              <label><input type="checkbox" value="blue"> Blue</label>
+              <label><input type="checkbox" value="red"> Red</label>
+              <label><input type="checkbox" value="yellow"> Yellow</label>
+            </div>
+          </div>
+
+          <div class="filter-actions">
+            <button id="applyFilters" class="btn-apply">Apply Filter</button>
+            <button id="resetFilters" class="btn-reset">Reset</button>
+          </div>
+        </aside>
+
+
+
+
+
+        <!-- PRODUCTS GRID -->
+        <main class="shop-main">
+          <div class="product-grid" id="productGrid"></div>
+
+          <!-- pagination -->
+          <div class="pagination" id="pagination"></div>
+        </main>
       </div>
+    </section>
 
-      <div class="filter-block">
-        <h3>Colors</h3>
-        <div class="colors">
-          <label><input type="checkbox" value="black"> Black</label>
-          <label><input type="checkbox" value="blue"> Blue</label>
-          <label><input type="checkbox" value="red"> Red</label>
-          <label><input type="checkbox" value="yellow"> Yellow</label>
-        </div>
-      </div>
-
-      <div class="filter-actions">
-        <button id="applyFilters" class="btn-apply">Apply Filter</button>
-        <button id="resetFilters" class="btn-reset">Reset</button>
-      </div>
-    </aside>
-
-    <!-- PRODUCTS GRID -->
-    <main class="shop-main">
-      <div class="product-grid" id="productGrid"></div>
-
-      <!-- pagination -->
-      <div class="pagination" id="pagination"></div>
-    </main>
-  </div>
-</section>
-
-<!-- TOAST (hidden by default) -->
-<div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+    <!-- TOAST (hidden by default) -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
 
 
 
-</main>
+  </main>
 
   <div class="separator">
-  
-</div>
 
-<footer class="footer">
+  </div>
+
+  <footer class="footer">
     <div class="footer-container">
 
-        <!-- Column 1 -->
-        <div class="footer-col">
-           <div class="logo"><img src="./images/logo.svg" alt=""></div>
-           
-            <p>Cillum eu id enim aliquip aute ullamco anim.  
-                Culpa deserunt nostrud excepteur voluptate.</p>
+      <!-- Column 1 -->
+      <div class="footer-col">
+        <div class="logo"><img src="./images/logo.svg" alt=""></div>
 
-            <p class="find-title">Find us here:</p>
+        <p>Cillum eu id enim aliquip aute ullamco anim.
+          Culpa deserunt nostrud excepteur voluptate.</p>
 
-            <div class="social-list">
+        <p class="find-title">Find us here:</p>
+
+        <div class="social-list">
 
 
-               <a class="social-link" href="#" aria-label="Facebook">
+          <a class="social-link" href="#" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <path
                 d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.03H7.9v-2.9h2.55V9.2c0-2.52 1.5-3.9 3.8-3.9 1.1 0 2.25.2 2.25.2v2.47h-1.27c-1.25 0-1.63.77-1.63 1.56v1.86h2.78l-.44 2.9h-2.34v7.03C18.34 21.2 22 17.06 22 12.07z"
@@ -213,59 +196,60 @@
                 fill="currentColor" />
             </svg>
           </a>
-              
-            </div>
-        </div>
 
-        <!-- Column 2 -->
-        <div class="footer-col">
-            <h3>About</h3>
-            <ul>
-                <li>About us</li>
-                <li>Collections</li>
-                <li>Shop</li>
-                <li>Blog</li>
-                <li>Contact us</li>
-            </ul>
         </div>
+      </div>
 
-        <!-- Column 3 -->
-        <div class="footer-col">
-            <h3>Useful Links</h3>
-            <ul>
-                <li>Privacy Policy</li>
-                <li>Terms of use</li>
-                <li>Support</li>
-                <li>Shipping details</li>
-                <li>FAQs</li>
-            </ul>
+      <!-- Column 2 -->
+      <div class="footer-col">
+        <h3>About</h3>
+        <ul>
+          <li>About us</li>
+          <li>Collections</li>
+          <li>Shop</li>
+          <li>Blog</li>
+          <li>Contact us</li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="footer-col">
+        <h3>Useful Links</h3>
+        <ul>
+          <li>Privacy Policy</li>
+          <li>Terms of use</li>
+          <li>Support</li>
+          <li>Shipping details</li>
+          <li>FAQs</li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-col">
+        <h3>Newsletter</h3>
+        <p>Subscribe to be the first to hear about deals, offers and upcoming collections.</p>
+
+        <div class="newsletter-box">
+          <input type="email" placeholder="Enter your email">
+          <span class="send-icon"><i class="fa-regular fa-paper-plane"></i></span>
         </div>
-
-        <!-- Column 4 -->
-        <div class="footer-col">
-            <h3>Newsletter</h3>
-            <p>Subscribe to be the first to hear about deals, offers and upcoming collections.</p>
-
-            <div class="newsletter-box">
-                <input type="email" placeholder="Enter your email">
-                <span class="send-icon"><i class="fa-regular fa-paper-plane"></i></span>
-            </div>
-        </div>
+      </div>
 
     </div>
 
     <div class="footer-bottom">
-        <p>© All right reserved. Mollee 2021</p>
+      <p>© All right reserved. Fashion Store by Komal 2025</p>
 
-        <div class="payments">
-            <img src="./images/payment_1.png" alt="">
-            <img src="./images/payment_2.png" alt="">
-            <img src="./images/payment_3.png" alt="">
-            <img src="images/payment_4.png" alt="">
-        </div>
+      <div class="payments">
+        <img src="./images/payment_1.png" alt="">
+        <img src="./images/payment_2.png" alt="">
+        <img src="./images/payment_3.png" alt="">
+        <img src="images/payment_4.png" alt="">
+      </div>
     </div>
-</footer>
+  </footer>
 
-<script src="./shop.js"></script>
+  <script src="./shop.js"></script>
 </body>
+
 </html>

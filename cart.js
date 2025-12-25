@@ -10,23 +10,27 @@ function saveCart() {
 }
 
 // Add item to cart
-function addToCart(product) {
-    const exists = cart.find(item => item.id === product.id);
+// function addToCart(product) {
+//     console.log("addToCart RECEIVED:", product);
 
-    if (exists) {
-        exists.qty++;
-    } else {
-        cart.push({
-            id: product.id,
-            title: product.title || product.name || "Unnamed Item",
-            price: Number(product.price),
-            image: product.image || product.img || "./images/placeholder.png",
-            qty: 1
-        });
-    }
+//     const exists = cart.find(item => item.id === product.id);
 
-    saveCart();
-}
+//     if (exists) {
+//         exists.qty++;
+//     } else {
+//   cart.push({
+//     id: product.id,
+//     title: product.title ?? product.name ?? "Unnamed Item",
+//     price: Number(product.price),
+//     image: product.image ?? product.img ?? "./images/placeholder.png",
+//     qty: 1
+// });
+
+
+//     }
+
+//     saveCart();
+// }
 
 // Render cart items
 function renderCart() {
@@ -50,8 +54,8 @@ function renderCart() {
                 <img src="${item.image}" alt="${item.title}" class="cart-img">
 
                 <div class="cart-details">
-                    <h3 class="cart-title">${item.title}</h3>
-                    <p class="cart-price">Rs ${item.price}</p>
+                   <h3 class="cart-title">${item.name}</h3>
+                    <p class="cart-price">$${Number(item.price).toFixed(2)}</p>
 
                     <div class="qty-controls">
                         <button onclick="decreaseQty(${item.id})">-</button>
@@ -67,6 +71,7 @@ function renderCart() {
 
     container.innerHTML = html;
 }
+
 
 // Increase quantity
 function increaseQty(id) {
@@ -96,8 +101,28 @@ function removeItem(id) {
 
 // Update total price
 function updateTotal() {
-    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-    document.getElementById("totalPrice").textContent = `$${total.toFixed(2)}`;
+  const DELIVERY_CHARGE = 16;
+
+  // 1️⃣ Order price (items only)
+  const orderPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
+
+  // 2️⃣ Final total
+  const total = orderPrice + DELIVERY_CHARGE;
+
+  // 3️⃣ Update UI
+  const orderPriceEl = document.getElementById("orderPrice");
+  const totalPriceEl = document.getElementById("totalPrice");
+
+  if (orderPriceEl) {
+    orderPriceEl.textContent = `$${orderPrice.toFixed(2)}`;
+  }
+
+  if (totalPriceEl) {
+    totalPriceEl.textContent = `$${total.toFixed(2)}`;
+  }
 }
 
 // Update cart count badge

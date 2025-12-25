@@ -5,18 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fashion Store - main page</title>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
   <!-- Bootstrap cdn -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <!-- fontawesome cdn -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <!-- fonts link -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
-
+  <!-- style sheet link -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="shop.css">
   <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
 
 
 </head>
@@ -24,7 +25,7 @@
 <body>
   <!-- header start -->
   <header>
-
+    <!-- navbar started -->
     <nav class="navbar">
       <div class="nav-left">
         <div class="hamburger">&#9776;</div>
@@ -42,7 +43,7 @@
       <div class="nav-right">
         <span class="icon"><img id="nav-search" src="./images/search.svg"></span>
         <span class="icon"><img id="nav-user" src="./images/user.svg"></span>
-      
+
         <div class="shop-actions">
           <button class="icon-btn" id="wishlistBtn" title="Wishlist" onclick="window.location.href='wishlist.html'">
             <img src="./images/heart.svg" alt="Wishlist" />
@@ -57,62 +58,62 @@
 
 
     </nav>
-<div id="popupOverlay"></div>
+    <!-- navbar ended -->
 
-<!-- Login Popup -->
-<div id="loginPopup">
-  <div class="popup-header">
-    <h2>Welcome Back</h2>
-    <button id="closePopup">&times;</button>
-  </div>
+    <div id="popupOverlay"></div>
 
-  <div class="popup-body">
+    <!-- Login Popup -->
+    <div id="loginPopup">
+      <div class="popup-header">
+        <h2>Welcome Back</h2>
+        <button id="closePopup">&times;</button>
+      </div>
 
-    <!-- Google Login -->
-    <button class="social-btn" id="googleLogin">
-      <img src="./images/google.svg" alt="Google" /> Login with Google
-    </button>
+      <div class="popup-body">
 
-    <div class="divider"><span>or</span></div>
+        <!-- Google Login -->
+        <button class="social-btn" id="googleLogin">
+          <img src="./images/google.svg" alt="Google" /> Login with Google
+        </button>
 
-    <!-- Email Login -->
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button id="emailLogin" class="primary-btn">Login</button>
-    <button id="resetPassword" class="link-btn">Forgot Password?</button>
+        <div class="divider"><span>or</span></div>
 
-    <div class="divider"><span>or</span></div>
+        <!-- Email Login -->
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="emailLogin" class="primary-btn">Login</button>
+        <button id="resetPassword" class="link-btn">Forgot Password?</button>
 
-    <!-- Phone Login -->
-    <input type="text" id="phoneNumber" placeholder="+923001234567">
-    <button id="phoneLogin" class="primary-btn">Login with Phone</button>
-    <div id="recaptcha-container"></div>
+        <div class="divider"><span>or</span></div>
 
-  </div>
-</div>
+        <!-- Phone Login -->
+        <input type="text" id="phoneNumber" placeholder="+923001234567">
+        <button id="phoneLogin" class="primary-btn">Login with Phone</button>
+        <div id="recaptcha-container"></div>
+
+      </div>
+    </div>
 
 
   </header>
   <!-- header end -->
 
-<!-- Overlay -->
-<div class="menu-overlay"></div>
+  <!-- Overlay -->
+  <div class="menu-overlay"></div>
 
-<!-- Drawer -->
-<div class="mobile-drawer">
-  <button class="drawer-close">✕</button>
+  <!-- Drawer from Left side -->
+  <div class="mobile-drawer">
+    <button class="drawer-close">✕</button>
 
-  <ul class="drawer-menu">
-    <li><a href="#">Home</a></li>
-   <li><a href="./shop.html">Shop</a></li>
-    <li><a href="./blog.html">Blog</a></li>
-     <li><a href="./about.html">About</a></li>
-    <li><a href="./contact.html">Contact</a></li>
-  </ul>
-</div>
-
-
-
+    <ul class="drawer-menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="./shop.html">Shop</a></li>
+      <li><a href="./blog.html">Blog</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </div>
+  <!-- Drawer ended -->
 
   <!-- main start -->
   <main>
@@ -148,7 +149,7 @@
 
         <!-- CENTER (carousel) -->
         <div class="hero-center">
-          <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="4500"
+          <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="3000"
             data-bs-touch="true">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -183,7 +184,7 @@
             </div>
           </div>
 
-          <!-- fraction counter and arrows (inside center but visually on edges of center) -->
+          <!-- fraction counter and arrows-->
           <div class="hero-counter" id="heroCounter">1<span>/3</span></div>
 
           <div class="hero-arrows">
@@ -216,7 +217,7 @@
     </section>
     <!-- hero section end -->
 
-    <!-- PROMO SECTION-->
+    <!-- Promo section start -->
     <section class="promo-section" id="promo-section" aria-labelledby="promo-heading">
       <!-- dotted artwork -->
       <div class="promo-dots" aria-hidden="true"></div>
@@ -241,7 +242,7 @@
           <div class=" content2">
             <div class="tiny">MEN COLLECTION</div>
             <h3 class="card2">New Autumn<br> Arrivals 2020</h3>
-            <a class="card-cta" href="#">&mdash; Shop Now</a>
+            <a class="card-cta" href="./shop.html"> &mdash; Shop Now</a>
           </div>
           <div class="hero-label">
             <h1>SWEATERS</h1>
@@ -263,9 +264,9 @@
 
         <article class="card card-dresses" aria-label="Dresses collection">
           <div class="content3">
-            <div class="tiny tiny4">WOMEN COLLECTION</div>
-            <h3 class="card4">Trendy Look<br> For Every Day</h3>
-            <a class="card-cta card-cta4" c href="#">&mdash; Shop Now</a>
+            <div class="tiny">WOMEN COLLECTION</div>
+            <h3 class="card1">Trendy Look<br> For Every Day</h3>
+            <a class="card-cta" href="./shop.html">&mdash; Shop Now</a>
           </div>
           <div class="hero-label left">DRESSES</div>
         </article>
@@ -283,9 +284,9 @@
         <div class="loader-text">Loading...</div>
       </div>
     </section>
-    <!-- main collection area end -->
+    <!-- promo section end -->
 
-    <!-- Products section start -->
+    <!--Landing page products section start -->
     <div class="landingPageProducts">
       <div class="newcol">
         <p>New Collection</p>
@@ -297,7 +298,7 @@
 
     <div class="product-grid">
 
-      <a href="single-product.html" class="product-link">
+      <!-- <a href="single-product.html" class="product-link">
         <div class="product-card">
           <div class="tag new">NEW</div>
           <div class="wishlist">♡</div>
@@ -311,7 +312,25 @@
             <p class="price">$35.99</p>
           </div>
         </div>
-      </a>
+      </a> -->
+
+<a href="single-product.html" class="product-link">
+  <div class="product-card" data-id="1">
+    <div class="tag new">NEW</div>
+    <div class="wishlist">♡</div>
+
+    <div class="product-image">
+      <img src="./images/product-item_9.jpg.jpeg" alt="Product">
+    </div>
+
+    <div class="product-info">
+      <h3>Cotton T-shirt</h3>
+      <p class="price">$35.99</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+</a>
+
 
       <a href="single-product.html" class="product-link">
         <div class="product-card">
@@ -397,159 +416,26 @@
           </div>
         </div>
       </a>
-
-
-
     </div>
-
-
-<!-- TOAST (hidden by default) -->
-<div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
-
-
-    <!-- <div class="product-grid">
-
-      <div class="product-card">
-        <div class="tag new">NEW</div>
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_9.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-
-      <div class="product-card">
-       
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_8.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="tag sale">SALE</div>
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_7.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-      <div class="product-card">
-    
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_6.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="tag new">NEW</div>
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_5.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-
-      <div class="product-card">
-       
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_4.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="tag new">NEW</div>
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_3.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="tag sale">SALE</div>
-        <div class="wishlist">♡</div>
-
-        <div class="product-image">
-          <img src="./images/product-item_2.jpg.jpeg" alt="Product">
-        </div>
-
-        <div class="product-info">
-          <h3>Cotton T-shirt</h3>
-          <p class="price">$35.99</p>
-        </div>
-      </div>
-    </div> -->
-
 
     <div class="view-wrap">
       <button id="view-more-btn" class="view-more" data-target="shop.html" data-duration="3000">
         See All Products
       </button>
     </div>
-
-    </div>
-
-
+    <!-- TOAST (hidden by default) -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true"></div>
+    <!-- Loader for buttons -->
     <div id="promo-loader" class="promo-loader" aria-hidden="true">
       <div class="spinner" role="status" aria-label="Loading"></div>
       <div class="loader-text">Loading...</div>
     </div>
-
-    <!-- Products section end -->
+    <!-- Landing page products section end -->
 
     <!-- deal block section start -->
-
     <div class="dealBlock">
       <div class="leftside">
         <img src="./images/vector-deal.svg" alt="">
-
         <h2 style="position: absolute; color: black; margin-top: -20%; margin-left: 30px; font-size: 30px;"><span
             style="font-weight: bold; ">Deal</span> of the week</h2>
         <h1 style="font-size: 100px; position: absolute; color: black; margin-top: -10%; margin-left: 30px;">Stay Warm
@@ -564,15 +450,14 @@
           </button>
         </div>
       </div>
-
-
+      <!-- image side in deal block -->
       <div class="rightside">
-
+        <!--bg image from css-->
       </div>
     </div>
-
     <!-- deal block section end -->
 
+    <!-- services section start -->
     <section class="feature-section">
       <div class="feature-box">
         <div class="icon1">
@@ -601,13 +486,14 @@
         <p>Non aliqua reprehenderit reprehenderit culpa laboris nulla minim anim velit.</p>
       </div>
     </section>
-
+    <!-- services section end -->
   </main>
   <!-- main end -->
+
   <div class="separator">
-
+    <!-- gray color div to show space -->
   </div>
-
+  <!-- footer start -->
   <footer class="footer">
     <div class="footer-container">
 
@@ -686,7 +572,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© All right reserved. Mollee 2021</p>
+      <p>© All right reserved. Fashion Store by Komal 2025</p>
 
       <div class="payments">
         <img src="./images/payment_1.png" alt="">
@@ -696,41 +582,19 @@
       </div>
     </div>
   </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <!-- footer end -->
 
   <!-- bootstrap JS cdn -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./Script.js"></script>
+  <script src="./shop.js"></script>
+  <!-- Javascript for carousal sliding start -->
 
   <script>
     (function () {
       const carouselEl = document.getElementById('heroCarousel');
 
-      // create or get bootstrap carousel instance with interval and auto-cycle
+      //to get bootstrap carousel instance with interval and auto-cycle
       const bsCarousel = bootstrap.Carousel.getOrCreateInstance(carouselEl, {
         interval: 4500,
         ride: 'carousel',
@@ -767,251 +631,256 @@
 
   </script>
 
+  <!-- Javascript for carousal sliding end -->
+
+  <!-- Javascript for adding item to the wishlist -->
   <script>
-(function(){
-  const WLS_KEY = 'site_wishlist_v1'; // localStorage key
-  const navCountEl = document.getElementById('wishlistCount'); // navbar badge span
+    (function () {
+      const WLS_KEY = 'site_wishlist_v1'; // localStorage key
+      const navCountEl = document.getElementById('wishlistCount'); // navbar badge span
 
-  // read/write util
-  function readWishlist(){
-    try { return JSON.parse(localStorage.getItem(WLS_KEY)) || []; }
-    catch(e) { return []; }
-  }
-  function writeWishlist(arr){
-    localStorage.setItem(WLS_KEY, JSON.stringify(arr));
-  }
-
-  // get product identifier for a card (robust)
-  function getCardId(card){
-    if(!card) return null;
-    if(card.dataset && card.dataset.id) return card.dataset.id;
-    // try anchor href (parent <a>)
-    const a = card.closest('a[href]');
-    if(a && a.getAttribute('href')) return 'href:' + a.getAttribute('href');
-    // try image src
-    const img = card.querySelector('.product-image img');
-    if(img && img.src) return 'img:' + img.src;
-    // fallback to title
-    const title = card.querySelector('.product-info h3');
-    if(title) return 'title:' + title.textContent.trim();
-    return null;
-  }
-
-  // toast helper
-  let toastTimer = 0;
-  function showToast(msg){
-    clearTimeout(toastTimer);
-    let t = document.querySelector('.toast');
-    if(!t){ t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
-    t.textContent = msg;
-    void t.offsetWidth; // reflow
-    t.classList.add('show');
-    toastTimer = setTimeout(()=> t.classList.remove('show'), 2000);
-  }
-
-  // update navbar badge
-  function updateNavCount(){
-    const arr = readWishlist();
-    if(navCountEl) navCountEl.textContent = arr.length;
-  }
-
-  // toggle wish for a card
-  function toggleWish(card, btn){
-    const id = getCardId(card);
-    if(!id) return;
-    const arr = readWishlist();
-    const idx = arr.indexOf(id);
-    if(idx === -1){
-      arr.push(id);
-      writeWishlist(arr);
-      btn.classList.add('wished');
-      btn.textContent = '♥';
-      btn.setAttribute('aria-pressed','true');
-      showToast('Item added to wishlist');
-    } else {
-      arr.splice(idx,1);
-      writeWishlist(arr);
-      btn.classList.remove('wished');
-      btn.textContent = '♡';
-      btn.setAttribute('aria-pressed','false');
-      showToast('Item removed from wishlist');
-    }
-    updateNavCount();
-  }
-
-  // initialize existing card buttons from storage
-  function initCards(){
-    const wishlist = readWishlist();
-    document.querySelectorAll('.product-card').forEach(card => {
-      const btn = card.querySelector('.wishlist');
-      if(!btn) return;
-      const id = getCardId(card);
-      if(id && wishlist.includes(id)){
-        btn.classList.add('wished');
-        btn.textContent = '♥';
-        btn.setAttribute('aria-pressed','true');
-      } else {
-        btn.classList.remove('wished');
-        btn.textContent = '♡';
-        btn.setAttribute('aria-pressed','false');
+      // read/write util
+      function readWishlist() {
+        try { return JSON.parse(localStorage.getItem(WLS_KEY)) || []; }
+        catch (e) { return []; }
       }
-    });
-  }
+      function writeWishlist(arr) {
+        localStorage.setItem(WLS_KEY, JSON.stringify(arr));
+      }
 
-  // attach delegated listener to grid or document
-  function attachListeners(){
-    document.addEventListener('click', function(e){
-      // find if wishlist clicked
-      const btn = e.target.closest('.product-card .wishlist');
-      if(!btn) return; // not a wishlist click
+      // get product identifier for a card (robust)
+      function getCardId(card) {
+        if (!card) return null;
+        if (card.dataset && card.dataset.id) return card.dataset.id;
+        // try anchor href (parent <a>)
+        const a = card.closest('a[href]');
+        if (a && a.getAttribute('href')) return 'href:' + a.getAttribute('href');
+        // try image src
+        const img = card.querySelector('.product-image img');
+        if (img && img.src) return 'img:' + img.src;
+        // fallback to title
+        const title = card.querySelector('.product-info h3');
+        if (title) return 'title:' + title.textContent.trim();
+        return null;
+      }
 
-      // stop navigation and propagation so anchor doesn't run
-      e.preventDefault();
-      e.stopPropagation();
+      // toast helper
+      let toastTimer = 0;
+      function showToast(msg) {
+        clearTimeout(toastTimer);
+        let t = document.querySelector('.toast');
+        if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
+        t.textContent = msg;
+        void t.offsetWidth; // reflow
+        t.classList.add('show');
+        toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+      }
 
-      // find card
-      const card = btn.closest('.product-card');
-      if(!card) return;
-      toggleWish(card, btn);
-    }, true); // capture phase to preempt link navigation if needed
-  }
+      // update navbar badge
+      function updateNavCount() {
+        const arr = readWishlist();
+        if (navCountEl) navCountEl.textContent = arr.length;
+      }
 
-  // run on DOM ready
-  document.addEventListener('DOMContentLoaded', function(){
-    initCards();
-    updateNavCount();
-    attachListeners();
-  });
+      // toggle wish for a card
+      function toggleWish(card, btn) {
+        const id = getCardId(card);
+        if (!id) return;
+        const arr = readWishlist();
+        const idx = arr.indexOf(id);
+        if (idx === -1) {
+          arr.push(id);
+          writeWishlist(arr);
+          btn.classList.add('wished');
+          btn.textContent = '♥';
+          btn.setAttribute('aria-pressed', 'true');
+          showToast('Item added to wishlist');
+        } else {
+          arr.splice(idx, 1);
+          writeWishlist(arr);
+          btn.classList.remove('wished');
+          btn.textContent = '♡';
+          btn.setAttribute('aria-pressed', 'false');
+          showToast('Item removed from wishlist');
+        }
+        updateNavCount();
+      }
 
-  // also run immediately in case DOMContentLoaded already fired
-  if(document.readyState === 'interactive' || document.readyState === 'complete'){
-    initCards();
-    updateNavCount();
-  }
-})();
-</script>
+      // initialize existing card buttons from storage
+      function initCards() {
+        const wishlist = readWishlist();
+        document.querySelectorAll('.product-card').forEach(card => {
+          const btn = card.querySelector('.wishlist');
+          if (!btn) return;
+          const id = getCardId(card);
+          if (id && wishlist.includes(id)) {
+            btn.classList.add('wished');
+            btn.textContent = '♥';
+            btn.setAttribute('aria-pressed', 'true');
+          } else {
+            btn.classList.remove('wished');
+            btn.textContent = '♡';
+            btn.setAttribute('aria-pressed', 'false');
+          }
+        });
+      }
 
-<script>
-  const hamburger = document.querySelector('.hamburger');
-  const drawer = document.querySelector('.mobile-drawer');
-  const overlay = document.querySelector('.menu-overlay');
-  const closeBtn = document.querySelector('.drawer-close');
+      // attach delegated listener to grid or document
+      function attachListeners() {
+        document.addEventListener('click', function (e) {
+          // find if wishlist clicked
+          const btn = e.target.closest('.product-card .wishlist');
+          if (!btn) return; // not a wishlist click
 
-  hamburger.addEventListener('click', () => {
-    drawer.classList.add('active');
-    overlay.classList.add('active');
-  });
+          // stop navigation and propagation so anchor doesn't run
+          e.preventDefault();
+          e.stopPropagation();
 
-  closeBtn.addEventListener('click', closeDrawer);
-  overlay.addEventListener('click', closeDrawer);
+          // find card
+          const card = btn.closest('.product-card');
+          if (!card) return;
+          toggleWish(card, btn);
+        }, true); // capture phase to preempt link navigation if needed
+      }
 
-  function closeDrawer(){
-    drawer.classList.remove('active');
-    overlay.classList.remove('active');
-  }
-</script>
+      // run on DOM ready
+      document.addEventListener('DOMContentLoaded', function () {
+        initCards();
+        updateNavCount();
+        attachListeners();
+      });
 
+      // also run immediately in case DOMContentLoaded already fired
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        initCards();
+        updateNavCount();
+      }
+    })();
+  </script>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
+  <!-- Javascript for adding item to the wishlist- end  -->
 
-<script>
-  // --- Firebase Config ---
-  const firebaseConfig = {
-  apiKey: "AIzaSyD5LDzfuxprc2RNuyOvzosHr56JLgzqy9o",
-  authDomain: "ecommerce-fashion-store-ecdf9.firebaseapp.com",
-  projectId: "ecommerce-fashion-store-ecdf9",
-  storageBucket: "ecommerce-fashion-store-ecdf9.firebasestorage.app",
-  messagingSenderId: "25564492774",
-  appId: "1:25564492774:web:08a3910198bdb16a3cdc27"
-};
+  <!-- Javascript for opening drawer by hamburger -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const drawer = document.querySelector('.mobile-drawer');
+    const overlay = document.querySelector('.menu-overlay');
+    const closeBtn = document.querySelector('.drawer-close');
 
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  // --- Open popup on icon click ---
-  document.getElementById("nav-user").addEventListener("click", () => {
-    document.getElementById("loginPopup").style.display = "block";
-  });
-
-  
-  // --- Close popup ---
-  document.getElementById("closePopup").addEventListener("click", () => {
-    document.getElementById("loginPopup").style.display = "none";
-  });
-
-  document.getElementById("nav-user").addEventListener("click", () => {
-    document.getElementById("loginPopup").style.display = "block";
-    document.getElementById("popupOverlay").style.display = "block";
-});
-
-document.getElementById("closePopup").addEventListener("click", () => {
-    document.getElementById("loginPopup").style.display = "none";
-    document.getElementById("popupOverlay").style.display = "none";
-});
-
-  // --- Email login ---
-  document.getElementById("emailLogin").addEventListener("click", function(){
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    if(!email || !password){ alert("Enter email & password"); return; }
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        alert("Logged in as " + userCredential.user.email);
-        document.getElementById("loginPopup").style.display = "none";
-      })
-      .catch(error => alert(error.message));
-  });
-
-  // --- Password reset ---
-  document.getElementById("resetPassword").addEventListener("click", function(){
-    const email = document.getElementById("email").value;
-    if(!email){ alert("Enter your email first"); return; }
-
-    auth.sendPasswordResetEmail(email)
-      .then(() => alert("Reset email sent!"))
-      .catch(error => alert(error.message));
-  });
-
-  // --- Google login ---
-  const googleProvider = new firebase.auth.GoogleAuthProvider();
-  document.getElementById("googleLogin").addEventListener("click", function(){
-    auth.signInWithPopup(googleProvider)
-      .then(result => {
-        alert("Logged in as " + result.user.displayName);
-        document.getElementById("loginPopup").style.display = "none";
-      })
-      .catch(error => alert(error.message));
-  });
-
-  // --- Phone login ---
-  document.getElementById("phoneLogin").addEventListener("click", function(){
-    const phoneNumber = document.getElementById("phoneNumber").value;
-    if(!phoneNumber){ alert("Enter phone number"); return; }
-
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible',
-      'callback': (response) => { console.log("Captcha verified"); }
+    hamburger.addEventListener('click', () => {
+      drawer.classList.add('active');
+      overlay.classList.add('active');
     });
 
-    auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
-      .then(confirmationResult => {
-        const code = prompt("Enter OTP sent to your phone:");
-        return confirmationResult.confirm(code);
-      })
-      .then(result => {
-        alert("Phone login successful: " + result.user.phoneNumber);
-        document.getElementById("loginPopup").style.display = "none";
-      })
-      .catch(error => alert(error.message));
-  });
-</script>
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    function closeDrawer() {
+      drawer.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+  </script>
+  <!-- Javascript for opening drawer by hamburger, end -->
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.2.0/firebase-auth-compat.js"></script>
 
 
-  <script src="./shop.js"></script>
-  <!-- <script src="./Script.js"></script> -->
+  <!-- Javascript for login start -->
+  <script>
+    // --- Firebase Config ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyD5LDzfuxprc2RNuyOvzosHr56JLgzqy9o",
+      authDomain: "ecommerce-fashion-store-ecdf9.firebaseapp.com",
+      projectId: "ecommerce-fashion-store-ecdf9",
+      storageBucket: "ecommerce-fashion-store-ecdf9.firebasestorage.app",
+      messagingSenderId: "25564492774",
+      appId: "1:25564492774:web:08a3910198bdb16a3cdc27"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // --- Open popup on icon click ---
+    document.getElementById("nav-user").addEventListener("click", () => {
+      document.getElementById("loginPopup").style.display = "block";
+    });
+
+
+    // --- Close popup ---
+    document.getElementById("closePopup").addEventListener("click", () => {
+      document.getElementById("loginPopup").style.display = "none";
+    });
+
+    document.getElementById("nav-user").addEventListener("click", () => {
+      document.getElementById("loginPopup").style.display = "block";
+      document.getElementById("popupOverlay").style.display = "block";
+    });
+
+    document.getElementById("closePopup").addEventListener("click", () => {
+      document.getElementById("loginPopup").style.display = "none";
+      document.getElementById("popupOverlay").style.display = "none";
+    });
+
+    // --- Email login ---
+    document.getElementById("emailLogin").addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      if (!email || !password) { alert("Enter email & password"); return; }
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Logged in as " + userCredential.user.email);
+          document.getElementById("loginPopup").style.display = "none";
+        })
+        .catch(error => alert(error.message));
+    });
+
+    // --- Password reset ---
+    document.getElementById("resetPassword").addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      if (!email) { alert("Enter your email first"); return; }
+
+      auth.sendPasswordResetEmail(email)
+        .then(() => alert("Reset email sent!"))
+        .catch(error => alert(error.message));
+    });
+
+    // --- Google login ---
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    document.getElementById("googleLogin").addEventListener("click", function () {
+      auth.signInWithPopup(googleProvider)
+        .then(result => {
+          alert("Logged in as " + result.user.displayName);
+          document.getElementById("loginPopup").style.display = "none";
+        })
+        .catch(error => alert(error.message));
+    });
+
+    // --- Phone login ---
+    document.getElementById("phoneLogin").addEventListener("click", function () {
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      if (!phoneNumber) { alert("Enter phone number"); return; }
+
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => { console.log("Captcha verified"); }
+      });
+
+      auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+        .then(confirmationResult => {
+          const code = prompt("Enter OTP sent to your phone:");
+          return confirmationResult.confirm(code);
+        })
+        .then(result => {
+          alert("Phone login successful: " + result.user.phoneNumber);
+          document.getElementById("loginPopup").style.display = "none";
+        })
+        .catch(error => alert(error.message));
+    });
+  </script>
+  <!-- Javascript for login end -->
 </body>
 
 </html>
