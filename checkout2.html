@@ -254,43 +254,10 @@ h2{
     </div>
   </div>
 
-  <button class="confirm-btn" onclick="confirmPayment()">Confirm Payment</button>
+  <button type="button" class="confirm-btn" onclick="confirmPayment()">Confirm Payment</button>
 
 </div>
 
-<script>
-const options = document.querySelectorAll(".payment-option");
-const cardDetails = document.getElementById("cardDetails");
-
-options.forEach(opt => {
-  opt.addEventListener("click", () => {
-    options.forEach(o => o.classList.remove("selected"));
-    opt.classList.add("selected");
-    opt.querySelector("input").checked = true;
-
-    if(opt.querySelector("input").value === "Card Payment"){
-      cardDetails.style.display = "block";
-    } else {
-      cardDetails.style.display = "none";
-    }
-  });
-});
-
-function confirmPayment(){
-  const selected = document.querySelector("input[name='payment']:checked");
-  if(!selected){
-    alert("Please select a payment method.");
-    return;
-  }
-
-localStorage.setItem(
-  "checkout_payment",
-  JSON.stringify({ method: selected.value })
-);
-
-  window.location.href = "checkout3.html";
-}
-</script>
 
 <div class="separator">
 
@@ -385,6 +352,114 @@ localStorage.setItem(
       </div>
     </div>
   </footer>
+
+
+<script>
+/* ---------------- PAYMENT OPTION UI ---------------- */
+
+const options = document.querySelectorAll(".payment-option");
+const cardDetails = document.getElementById("cardDetails");
+
+options.forEach(opt => {
+  opt.addEventListener("click", () => {
+    options.forEach(o => o.classList.remove("selected"));
+    opt.classList.add("selected");
+
+    const input = opt.querySelector("input");
+    input.checked = true;
+
+    if (input.value === "Card Payment") {
+      cardDetails.style.display = "block";
+    } else {
+      cardDetails.style.display = "none";
+    }
+  });
+});
+
+/* ---------------- CONFIRM PAYMENT ---------------- */
+
+
+function confirmPayment() {
+
+  // 1️⃣ Check payment selected
+  const selected = document.querySelector("input[name='payment']:checked");
+  if (!selected) {
+    alert("Please select a payment method.");
+    return;
+  }
+
+  // 2️⃣ Get cart data
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  const orderItems = formatCartItems(cart);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  // 3️⃣ Get user data from form
+const formData = JSON.parse(localStorage.getItem("checkoutForm")) || {};
+
+const templateParams = {
+  to_email: formData.email,
+  customer_name: formData.name,
+  customer_email: formData.email,
+  customer_phone: formData.phone,
+  customer_address: formData.address,
+  payment_method: selected.value,
+  order_items: orderItems,
+  total_price: ` ${totalPrice}`
+};
+
+  // 4️⃣ SEND EMAIL (REAL TIME)
+  emailjs.send(
+    "service_9pqpdjs",      // ✅ your service ID
+    "template_f5fr8tb",     // ✅ your template ID
+    templateParams
+  )
+  .then(() => {
+    console.log("✅ Email sent successfully");
+
+    // 5️⃣ Clear cart AFTER email success
+    localStorage.removeItem("cart");
+
+    // 6️⃣ Redirect to thank-you page
+    window.location.href = "checkout3.html";
+  })
+  .catch(error => {
+    console.error("❌ Email failed:", error);
+    alert("Order placed, but email could not be sent.");
+  });
+}
+
+
+/* 🛒 Cart formatter */
+function formatCartItems(cart) {
+  return cart.map(item =>
+    `${item.name} x${item.quantity} — Rs ${item.price * item.quantity}`
+  ).join("\n");
+}
+
+
+
+/* ---------------- OPTIONAL: SAFETY CHECK ---------------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ checkout2.js loaded");
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function () {
+    emailjs.init("7-mby56uaIshR6iyz");
+  })();
+</script>
 
 </body>
 

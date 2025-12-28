@@ -167,6 +167,27 @@ function checkout1Init(){
   });
 }
 
+function goToPayment() {
+  // 1️⃣ Get all form values
+  const formData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    address: document.getElementById("address").value
+  };
+
+  // 2️⃣ Validate form
+  if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+    alert("Please fill all details!");
+    return;
+  }
+
+  // 3️⃣ Save form data to localStorage
+  localStorage.setItem("checkoutForm", JSON.stringify(formData));
+
+  // 4️⃣ Redirect to payment page
+  window.location.href = "checkout2.html";
+}
 /* ------------------ CHECKOUT PAGE 2 ----------------- */
 function checkout2Init() {
   setStepper(2);
@@ -233,3 +254,7 @@ const templateParams = {
     window.location.href = 'checkout3.html';
   });
 }
+
+
+
+
